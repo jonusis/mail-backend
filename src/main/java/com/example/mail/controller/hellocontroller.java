@@ -18,7 +18,7 @@ public class hellocontroller {
         String password = req.getParameter("password");
         System.out.println(username);
         if(username.equals("abc") && password.equals("111")){
-            return "true";
+            return "12334";
         }
         return "false";
     }
