@@ -1,5 +1,6 @@
 package com.example.mail.controller;
 import com.sun.net.httpserver.HttpServer;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/v1")
 
 public class hellocontroller {
-
+    @CrossOrigin
     @RequestMapping(value = "/login",method=RequestMethod.POST)
     public String Login(HttpServletRequest req, HttpServletResponse resp){
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         System.out.println(username);
-        if(username.equals("abc") && password.equals("321")){
+        if(username.equals("4546") && password.equals("321")){
             return "true";
         }
         return "false";
