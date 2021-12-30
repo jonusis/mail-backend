@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.UserMapper">
+    <select id="queryUserList" resultType="User">
+        select * from Users
+    </select>
+    <select id="queryUserById" resultType="User">
+        select * from Users while uid = #{uid}
+    </select>
+    <select id="addUser" parameterType="User">
+        insert into users (uid,name,account,password,age,sex) values (#{uid},#{name},#{account},#{password},#{age},#{sex})
+    </select>
+    <select id="updateUser" parameterType="User">
+        update users set name=#{name},account=#{account},password=#{password},age=#{age},sex=#{sex} where uid = #{uid}
+    </select>
+    <select id="deleteUser" parameterType="int">
+        delete from users where uid = #{uid}
+    </select>
+    <select id="selectMaxUserId" resultType="int">
+        select MAX(uid) from Users
+    </select>
+</mapper>
