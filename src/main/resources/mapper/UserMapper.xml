@@ -18,7 +18,10 @@
     <select id="deleteUser" parameterType="int">
         delete from users where uid = #{uid}
     </select>
-    <select id="selectMaxUserId" resultType="int">
+    <select id="selectIdMaxUser" resultType="int">
         select MAX(uid) from Users
+    </select>
+    <select id="selectUserLogin" resultType="User">
+        select * from users where account=#{account} and password = #{password}
     </select>
 </mapper>
