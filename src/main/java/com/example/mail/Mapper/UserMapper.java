@@ -15,9 +15,11 @@ public interface UserMapper {
 
     void addUser(User user);
 
-    void updateUser(User user);
+    int updateUser(User user);
 
-    void deleteUser(int uid);
+    int deleteUser(int uid);
 
-    int selectMaxUserId();
+    int selectIdMaxUser();
+
+    List<User> selectUserLogin(String account,String password);
 }
