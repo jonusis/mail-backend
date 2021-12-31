@@ -15,9 +15,9 @@ public interface UserMapper {
 
     void addUser(User user);
 
-    int updateUser(User user);
+    void updateUser(User user);
 
-    int deleteUser(int uid);
+    void deleteUser(int uid);
 
     int selectIdMaxUser();
 
