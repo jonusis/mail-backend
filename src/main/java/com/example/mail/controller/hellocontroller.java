@@ -1,15 +1,11 @@
 package com.example.mail.controller;
-import com.example.mail.Mapper.UserMapper;
-import com.example.mail.Pojo.CodeMsg;
 import com.example.mail.Pojo.Result;
-import com.example.mail.Pojo.User;
 import com.example.mail.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1")

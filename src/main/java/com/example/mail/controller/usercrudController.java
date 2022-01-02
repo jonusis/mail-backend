@@ -1,10 +1,8 @@
 package com.example.mail.controller;
-import com.example.mail.Mapper.UserMapper;
-import com.example.mail.Pojo.CodeMsg;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
-import com.example.mail.Service.UserService;
 import com.example.mail.Service.UsercrudService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +22,9 @@ public class usercrudController {
     @RequestMapping(value = "/queryUserList", method = RequestMethod.GET)
     public Result<List<User>> queryUserList(HttpServletRequest req, HttpServletResponse resp){
         resp.setHeader("Access-Control-Allow-Headers","*");
-        return UsercrudService.queryUserList();
+        int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+        int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+        return UsercrudService.queryUserList(pageNum,pageSize);
     }
 
 

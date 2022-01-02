@@ -4,6 +4,8 @@ import com.example.mail.Mapper.UserMapper;
 import com.example.mail.Pojo.CodeMsg;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,14 @@ public class UsercrudService {
     @Autowired
     UserMapper userMapper;
 
-    public Result<List<User>> queryUserList() {
-        List<User> users;
-        users = userMapper.queryUserList();
+    public Result<List<User>> queryUserList(Integer pageNum,Integer pageSize) {
+        /*
+        PageHelper.startPage(1,3);
+        List<User> users = userMapper.queryUserList();
+        PageInfo<User> pageInfo = new PageInfo<User>(users);
+        return Result.success(pageInfo);//Result<PageInfo<User>>
+        */
+        List<User> users = userMapper.queryUserList();
         return Result.success(users);
     }
 
