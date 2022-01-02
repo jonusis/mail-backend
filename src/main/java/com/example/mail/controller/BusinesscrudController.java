@@ -70,12 +70,4 @@ public class BusinesscrudController {
         return BusinesscrudService.deleteBusiness(bid);
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/Login", method = RequestMethod.GET)
-    public Result<String> Login(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
-        String account = req.getParameter("account");
-        String password = req.getParameter("password");
-        return BusinesscrudService.Login(account,password);
-    }
 }

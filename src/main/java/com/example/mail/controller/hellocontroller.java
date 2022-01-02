@@ -1,6 +1,7 @@
 package com.example.mail.controller;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "/v1")
-
+@Api(value = "desc of class")
 public class hellocontroller {
 
     @Autowired

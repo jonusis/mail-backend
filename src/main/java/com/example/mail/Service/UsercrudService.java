@@ -17,15 +17,15 @@ public class UsercrudService {
     @Autowired
     UserMapper userMapper;
 
-    public Result<List<User>> queryUserList(Integer pageNum,Integer pageSize) {
-        /*
+    public Result<PageInfo<User>> queryUserList(Integer pageNum,Integer pageSize) {
+
         PageHelper.startPage(1,3);
         List<User> users = userMapper.queryUserList();
         PageInfo<User> pageInfo = new PageInfo<User>(users);
         return Result.success(pageInfo);//Result<PageInfo<User>>
-        */
-        List<User> users = userMapper.queryUserList();
-        return Result.success(users);
+
+//        List<User> users = userMapper.queryUserList();
+//        return Result.success(users);
     }
 
     public Result<User> queryUserById(int uid) {

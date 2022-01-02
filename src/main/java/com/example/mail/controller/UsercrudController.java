@@ -2,6 +2,8 @@ package com.example.mail.controller;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
 import com.example.mail.Service.UsercrudService;
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1/crud")
-
+@Api(tags = "user增删查改")
 public class UsercrudController {
 
     @Autowired
@@ -19,7 +21,7 @@ public class UsercrudController {
 
     @CrossOrigin
     @RequestMapping(value = "/queryUserList", method = RequestMethod.GET)
-    public Result<List<User>> queryUserList(HttpServletRequest req, HttpServletResponse resp){
+    public Result<PageInfo<User>> queryUserList(HttpServletRequest req, HttpServletResponse resp){
         resp.setHeader("Access-Control-Allow-Headers","*");
         int pageNum = Integer.parseInt(req.getParameter("pageNum"));
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
