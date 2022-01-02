@@ -2,7 +2,6 @@ package com.example.mail.controller;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
 import com.example.mail.Service.UsercrudService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/v1/crud")
 
-public class usercrudController {
+public class UsercrudController {
 
     @Autowired
     private UsercrudService UsercrudService;
