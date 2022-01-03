@@ -22,7 +22,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/queryUserList", method = RequestMethod.GET)
     public Result<PageInfo<User>> queryUserList(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int pageNum = Integer.parseInt(req.getParameter("pageNum"));
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
         return UsercrudService.queryUserList(pageNum,pageSize);
@@ -32,7 +31,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/queryUserById", method = RequestMethod.GET)
     public Result<User> queryUserById(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int uid = Integer.parseInt(req.getParameter("uid"));
         return UsercrudService.queryUserById(uid);
     }
@@ -40,7 +38,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public Result<String> addUser(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         String name = req.getParameter("name");
         String account = req.getParameter("account");
         String password = req.getParameter("password");
@@ -52,7 +49,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
     public Result<String> updateUser(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int uid = Integer.parseInt(req.getParameter("uid"));
         String name = req.getParameter("name");
         String account = req.getParameter("account");
@@ -65,7 +61,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
     public Result<String> deleteUser(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int uid = Integer.parseInt(req.getParameter("uid"));
         return UsercrudService.deleteUser(uid);
     }
@@ -73,7 +68,6 @@ public class UsercrudController {
     @CrossOrigin
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
     public Result<String> Login(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         String account = req.getParameter("account");
         String password = req.getParameter("password");
         return UsercrudService.Login(account,password);
