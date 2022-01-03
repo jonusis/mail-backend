@@ -28,6 +28,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
+                .termsOfServiceUrl("http://localhost:8080/swagger-ui.html")
                 //设置文档标题(API名称)
                 .title("rosettanet-admin项目 API 文档")
                 //文档描述

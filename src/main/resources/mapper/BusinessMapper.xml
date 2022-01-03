@@ -19,7 +19,7 @@
         delete from business where bid = #{bid}
     </select>
     <select id="selectIdMaxBusiness" resultType="int">
-        select MAX(uid) from business
+        select MAX(bid) from business
     </select>
     <select id="selectBusinessLogin" resultType="Business">
         select * from business where account=#{account} and password = #{password}

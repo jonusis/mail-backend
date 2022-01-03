@@ -19,7 +19,7 @@ public class UsercrudService {
 
     public Result<PageInfo<User>> queryUserList(Integer pageNum,Integer pageSize) {
 
-        PageHelper.startPage(1,3);
+        PageHelper.startPage(pageNum,pageSize);
         List<User> users = userMapper.queryUserList();
         PageInfo<User> pageInfo = new PageInfo<User>(users);
         return Result.success(pageInfo);//Result<PageInfo<User>>
