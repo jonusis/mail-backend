@@ -4,6 +4,7 @@ import com.example.mail.Pojo.Business;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
 import com.example.mail.Service.UsercrudService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
+@Api()
 @RequestMapping(value = "/v1/crud")
 
 public class BusinesscrudController {
@@ -24,7 +26,6 @@ public class BusinesscrudController {
     @CrossOrigin
     @RequestMapping(value = "/queryBusinessList", method = RequestMethod.GET)
     public Result<List<Business>> queryBusinessList(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int pageNum = Integer.parseInt(req.getParameter("pageNum"));
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
         return BusinesscrudService.queryBusinessList(pageNum,pageSize);
@@ -34,7 +35,6 @@ public class BusinesscrudController {
     @CrossOrigin
     @RequestMapping(value = "/queryBusinessById", method = RequestMethod.GET)
     public Result<Business> queryBusinessById(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int bid = Integer.parseInt(req.getParameter("bid"));
         return BusinesscrudService.queryBusinessById(bid);
     }
@@ -42,7 +42,6 @@ public class BusinesscrudController {
     @CrossOrigin
     @RequestMapping(value = "/addBusiness", method = RequestMethod.POST)
     public Result<String> addBusiness(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         String name = req.getParameter("name");
         String account = req.getParameter("account");
         String password = req.getParameter("password");
@@ -53,7 +52,6 @@ public class BusinesscrudController {
     @CrossOrigin
     @RequestMapping(value = "/updateBusiness", method = RequestMethod.PUT)
     public Result<String> updateBusiness(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int bid = Integer.parseInt(req.getParameter("bid"));
         String name = req.getParameter("name");
         String account = req.getParameter("account");
@@ -65,7 +63,6 @@ public class BusinesscrudController {
     @CrossOrigin
     @RequestMapping(value = "/deleteBusiness", method = RequestMethod.DELETE)
     public Result<String> deleteBusiness(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         int bid = Integer.parseInt(req.getParameter("bid"));
         return BusinesscrudService.deleteBusiness(bid);
     }
