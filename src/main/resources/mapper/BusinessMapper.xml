@@ -13,7 +13,7 @@
         insert into business (bid,name,account,password,introduction) values (#{bid},#{name},#{account},#{password},#{introduction})
     </select>
     <select id="updateBusiness" parameterType="Business">
-        update business set name=#{name},account=#{account},password=#{password},age=#{introduction} where bid = #{bid}
+        update business set name=#{name},account=#{account},password=#{password},introduction=#{introduction} where bid = #{bid}
     </select>
     <select id="deleteBusiness" parameterType="int">
         delete from business where bid = #{bid}

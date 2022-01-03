@@ -46,7 +46,7 @@ public class BusinesscrudService {
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success("success updateUser");
+        return Result.success("success updateBusiness");
     }
 
     public Result<String> deleteBusiness(int bid) {
