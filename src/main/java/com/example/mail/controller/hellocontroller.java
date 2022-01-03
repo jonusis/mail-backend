@@ -22,7 +22,6 @@ public class hellocontroller {
     @CrossOrigin
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public Result<String> addUser(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         String name = req.getParameter("name");
         String account = req.getParameter("username");
         String password = req.getParameter("password");
@@ -31,9 +30,9 @@ public class hellocontroller {
         return UserService.addUser(name,account,password,age,sex);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result<String> Login(HttpServletRequest req, HttpServletResponse resp){
-        resp.setHeader("Access-Control-Allow-Headers","*");
         String account = req.getParameter("username");
         String password = req.getParameter("password");
         return UserService.Login(account,password);
