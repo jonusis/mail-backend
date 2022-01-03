@@ -1,9 +1,9 @@
 package com.example.mail.Service;
 
 import com.example.mail.Mapper.BusinessMapper;
-import com.example.mail.Pojo.Business;
-import com.example.mail.Pojo.CodeMsg;
-import com.example.mail.Pojo.Result;
+import com.example.mail.Pojo.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,14 @@ public class BusinesscrudService {
     @Autowired
     BusinessMapper businessMapper;
 
-    public Result<List<Business>> queryBusinessList(Integer pageNum, Integer pageSize) {
-        List<Business> buiness = businessMapper.queryBusinessList();
-        return Result.success(buiness);
+    public PagehelpResult<List<Business>> queryBusinessList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Business> users = businessMapper.queryBusinessList();
+        PageInfo<Business> pageInfo = new PageInfo<>(users);
+        List<Business> list = pageInfo.getList();
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
     public Result<Business> queryBusinessById(int bid) {
