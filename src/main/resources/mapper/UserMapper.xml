@@ -7,7 +7,7 @@
         select * from Users
     </select>
     <select id="queryUserById" resultType="User">
-        select * from Users while uid = #{uid}
+        select * from Users where uid = #{uid}
     </select>
     <select id="addUser" parameterType="User">
         insert into users (uid,name,account,password,age,sex) values (#{uid},#{name},#{account},#{password},#{age},#{sex})
