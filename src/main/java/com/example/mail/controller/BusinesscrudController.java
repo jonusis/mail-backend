@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@Api()
-@RequestMapping(value = "/v1/crud")
+@Api(tags = "business增删查改")
+@RequestMapping(value = "/v1/buiness")
 
 public class BusinesscrudController {
     @Autowired
@@ -67,4 +67,11 @@ public class BusinesscrudController {
         return BusinesscrudService.deleteBusiness(bid);
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/BusinessLogin", method = RequestMethod.GET)
+    public Result<String> UserLogin(HttpServletRequest req, HttpServletResponse resp){
+        String account = req.getParameter("account");
+        String password = req.getParameter("password");
+        return BusinesscrudService.Login(account,password);
+    }
 }

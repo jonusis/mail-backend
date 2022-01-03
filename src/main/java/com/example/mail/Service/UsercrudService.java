@@ -1,9 +1,7 @@
 package com.example.mail.Service;
 
 import com.example.mail.Mapper.UserMapper;
-import com.example.mail.Pojo.CodeMsg;
-import com.example.mail.Pojo.Result;
-import com.example.mail.Pojo.User;
+import com.example.mail.Pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +15,15 @@ public class UsercrudService {
     @Autowired
     UserMapper userMapper;
 
-    public Result<PageInfo<User>> queryUserList(Integer pageNum,Integer pageSize) {
+    public PagehelpResult<List<User>> queryUserList(Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum,pageSize);
         List<User> users = userMapper.queryUserList();
-        PageInfo<User> pageInfo = new PageInfo<User>(users);
-        return Result.success(pageInfo);//Result<PageInfo<User>>
-
-//        List<User> users = userMapper.queryUserList();
-//        return Result.success(users);
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        List<User> list = pageInfo.getList();
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
     public Result<User> queryUserById(int uid) {

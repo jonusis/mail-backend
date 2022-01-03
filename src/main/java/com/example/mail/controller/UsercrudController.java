@@ -1,4 +1,5 @@
 package com.example.mail.controller;
+import com.example.mail.Pojo.PagehelpResult;
 import com.example.mail.Pojo.Result;
 import com.example.mail.Pojo.User;
 import com.example.mail.Service.UsercrudService;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/crud")
+@RequestMapping(value = "/v1/user")
 @Api(tags = "user增删查改")
 public class UsercrudController {
 
@@ -21,55 +22,53 @@ public class UsercrudController {
 
     @CrossOrigin
     @RequestMapping(value = "/queryUserList", method = RequestMethod.GET)
-    public Result<PageInfo<User>> queryUserList(HttpServletRequest req, HttpServletResponse resp){
-        int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-        int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-        return UsercrudService.queryUserList(pageNum,pageSize);
+    public PagehelpResult<List<User>> queryUserList(@RequestParam(defaultValue = "1") String pageNum,@RequestParam(defaultValue = "5") String pageSize){
+        int pagenum = Integer.parseInt(pageNum);
+        int pagesize = Integer.parseInt(pageSize);
+        return UsercrudService.queryUserList(pagenum,pagesize);
     }
 
 
     @CrossOrigin
     @RequestMapping(value = "/queryUserById", method = RequestMethod.GET)
-    public Result<User> queryUserById(HttpServletRequest req, HttpServletResponse resp){
-        int uid = Integer.parseInt(req.getParameter("uid"));
-        return UsercrudService.queryUserById(uid);
+    public Result<User> queryUserById(@RequestParam String uid){
+        int id = Integer.parseInt(uid);
+        return UsercrudService.queryUserById(id);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public Result<String> addUser(HttpServletRequest req, HttpServletResponse resp){
-        String name = req.getParameter("name");
-        String account = req.getParameter("account");
-        String password = req.getParameter("password");
-        int age = Integer.parseInt(req.getParameter("age"));
-        int sex = Integer.parseInt(req.getParameter("sex"));
+    public Result<String> addUser(@RequestBody User user){
+        String name = user.getName();
+        String account = user.getAccount();
+        String password = user.getPassword();
+        int age = user.getAge();
+        int sex = user.getSex();
         return UsercrudService.addUser(name,account,password,age,sex);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
-    public Result<String> updateUser(HttpServletRequest req, HttpServletResponse resp){
-        int uid = Integer.parseInt(req.getParameter("uid"));
-        String name = req.getParameter("name");
-        String account = req.getParameter("account");
-        String password = req.getParameter("password");
-        int age = Integer.parseInt(req.getParameter("age"));
-        int sex = Integer.parseInt(req.getParameter("sex"));
+    public Result<String> updateUser(@RequestBody User user){
+        int uid = user.getUid();
+        String name = user.getName();
+        String account = user.getAccount();
+        String password = user.getPassword();
+        int age = user.getAge();
+        int sex = user.getSex();
         return UsercrudService.updateUser(uid,name,account,password,age,sex);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
-    public Result<String> deleteUser(HttpServletRequest req, HttpServletResponse resp){
-        int uid = Integer.parseInt(req.getParameter("uid"));
-        return UsercrudService.deleteUser(uid);
+    public Result<String> deleteUser(@RequestParam String uid){
+        int id = Integer.parseInt(uid);
+        return UsercrudService.deleteUser(id);
     }
 
     @CrossOrigin
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
-    public Result<String> Login(HttpServletRequest req, HttpServletResponse resp){
-        String account = req.getParameter("account");
-        String password = req.getParameter("password");
+    public Result<String> UserLogin(@RequestParam String account,@RequestParam String password){
         return UsercrudService.Login(account,password);
     }
 }
