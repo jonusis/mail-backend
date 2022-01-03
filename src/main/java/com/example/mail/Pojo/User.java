@@ -17,22 +17,6 @@ public class User {
         this.sex = sex;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
     public String getName() {
         return name;
     }
@@ -57,11 +41,30 @@ public class User {
         return sex;
     }
 
+    public User() {
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }
