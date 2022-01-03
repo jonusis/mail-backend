@@ -5,16 +5,17 @@ import com.example.mail.Pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class GoodscrudService {
 
     @Autowired
     GoodsMapper goodsMapper;
 
     public PagehelpResult<List<Goods>> queryGoodsList(Integer pageNum, Integer pageSize) {
-
         PageHelper.startPage(pageNum,pageSize);
         List<Goods> goods = goodsMapper.queryGoodsList();
         PageInfo<Goods> pageInfo = new PageInfo<>(goods);
@@ -34,24 +35,24 @@ public class GoodscrudService {
         return Result.success(goods);
     }
 
-    public Result<List<Goods>> queryGoodsByBid(int bid) {
-        List<Goods> goods = null;
-        try {
-            goods = goodsMapper.queryGoodsByBid(bid);
-        } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
-        }
-        return Result.success(goods);
+    public PagehelpResult<List<Goods>> queryGoodsByBid(int bid, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Goods> goods = goodsMapper.queryGoodsByBid(bid);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        List<Goods> list = pageInfo.getList();
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
-    public Result<List<Goods>> queryGoodsByType(String type) {
-        List<Goods> goods = null;
-        try {
-            goods = goodsMapper.queryGoodsByType(type);
-        } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
-        }
-        return Result.success(goods);
+    public PagehelpResult<List<Goods>> queryGoodsByType(String type, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Goods> goods = goodsMapper.queryGoodsByType(type);
+        PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+        List<Goods> list = pageInfo.getList();
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
     public Result<String> addGoods(int bid, String name, String type, int price, int count, String introduction){
@@ -71,5 +72,14 @@ public class GoodscrudService {
             return Result.error(new CodeMsg(0, e.toString()));
         }
         return Result.success("success updateGoods");
+    }
+
+    public Result<String> deleteGoods(int gid) {
+        try {
+            goodsMapper.deleteGoods(gid);
+        } catch (Exception e) {
+            return Result.error(new CodeMsg(0, e.toString()));
+        }
+        return Result.success("success deleteGoods");
     }
 }
