@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/v1/user")
 @Api(tags = "user增删查改")
+@CrossOrigin(origins = "*")
 public class UsercrudController {
 
     @Autowired
     private UsercrudService UsercrudService;
 
-    @CrossOrigin
     @RequestMapping(value = "/queryUserList", method = RequestMethod.GET)
     public PagehelpResult<List<User>> queryUserList(@RequestParam(defaultValue = "1") String pageNum,@RequestParam(defaultValue = "5") String pageSize){
         int pagenum = Integer.parseInt(pageNum);
@@ -29,14 +29,12 @@ public class UsercrudController {
     }
 
 
-    @CrossOrigin
     @RequestMapping(value = "/queryUserById", method = RequestMethod.GET)
     public Result<User> queryUserById(@RequestParam String uid){
         int id = Integer.parseInt(uid);
         return UsercrudService.queryUserById(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public Result<String> addUser(@RequestBody User user){
         String name = user.getName();
@@ -47,7 +45,6 @@ public class UsercrudController {
         return UsercrudService.addUser(name,account,password,age,sex);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
     public Result<String> updateUser(@RequestBody User user){
         int uid = user.getUid();
@@ -59,14 +56,12 @@ public class UsercrudController {
         return UsercrudService.updateUser(uid,name,account,password,age,sex);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
     public Result<String> deleteUser(@RequestParam String uid){
         int id = Integer.parseInt(uid);
         return UsercrudService.deleteUser(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/Login", method = RequestMethod.GET)
     public Result<String> UserLogin(@RequestParam String account,@RequestParam String password){
         return UsercrudService.Login(account,password);
