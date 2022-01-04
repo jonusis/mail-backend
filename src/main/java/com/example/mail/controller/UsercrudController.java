@@ -50,10 +50,9 @@ public class UsercrudController {
         int uid = user.getUid();
         String name = user.getName();
         String account = user.getAccount();
-        String password = user.getPassword();
         int age = user.getAge();
         int sex = user.getSex();
-        return UsercrudService.updateUser(uid,name,account,password,age,sex);
+        return UsercrudService.updateUser(uid,name,account,age,sex);
     }
 
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
