@@ -19,8 +19,8 @@ public class DeliverycrudService {
 
     public PagehelpResult<List<Delivery>> queryDeliveryList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Delivery> users = deliveryMapper.queryDeliveryList();
-        PageInfo<Delivery> pageInfo = new PageInfo<>(users);
+        List<Delivery> deliveries = deliveryMapper.queryDeliveryList();
+        PageInfo<Delivery> pageInfo = new PageInfo<>(deliveries);
         List<Delivery> list = pageInfo.getList();
         int pageNumber = pageInfo.getPageNum();
         int PageSize = pageInfo.getPages();
@@ -28,33 +28,33 @@ public class DeliverycrudService {
     }
 
     public Result<Delivery> queryDeliveryByDid(int did) {
-        Delivery buiness = null;
+        Delivery delivery = null;
         try {
-            buiness = deliveryMapper.queryDeliveryByDid(did);
+            delivery = deliveryMapper.queryDeliveryByDid(did);
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success(buiness);
+        return Result.success(delivery);
     }
 
     public Result<Delivery> queryDeliveryByUid(int uid) {
-        Delivery buiness = null;
+        Delivery delivery = null;
         try {
-            buiness = deliveryMapper.queryDeliveryByUid(uid);
+            delivery = deliveryMapper.queryDeliveryByUid(uid);
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success(buiness);
+        return Result.success(delivery);
     }
 
     public Result<Delivery> queryDeliveryByOid(int oid) {
-        Delivery buiness = null;
+        Delivery delivery = null;
         try {
-            buiness = deliveryMapper.queryDeliveryByOid(oid);
+            delivery = deliveryMapper.queryDeliveryByOid(oid);
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success(buiness);
+        return Result.success(delivery);
     }
 
     public Result<String> addDelivery(int uid, int oid, int state){
@@ -70,7 +70,7 @@ public class DeliverycrudService {
     public Result<String> updateDelivery(int did, int uid, int oid, int state) {
         Delivery delivery = null;
         try {
-            delivery = deliveryMapper.queryDeliveryByUid(uid);
+            delivery = deliveryMapper.queryDeliveryByDid(did);
             deliveryMapper.updateDelivery(new Delivery(did,uid,oid,state));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
@@ -84,7 +84,7 @@ public class DeliverycrudService {
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success("success deleteUser");
+        return Result.success("success deleteDelivery");
     }
 
 

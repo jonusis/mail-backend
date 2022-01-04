@@ -3,7 +3,6 @@ package com.example.mail.controller;
 import com.example.mail.Pojo.Delivery;
 import com.example.mail.Pojo.PagehelpResult;
 import com.example.mail.Pojo.Result;
-import com.example.mail.Service.DeliverycrudService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 @Api(tags = "delivery增删查改")
 @RequestMapping(value = "/v1/delivery")
-public class DeliveryscrudController {
+public class DeliverycrudController {
     @Autowired
     private com.example.mail.Service.DeliverycrudService DeliverycrudService;
 
@@ -49,10 +48,10 @@ public class DeliveryscrudController {
 
     @CrossOrigin
     @RequestMapping(value = "/addDelivery", method = RequestMethod.POST)
-    public Result<String> addDelivery(@RequestBody Delivery gelivery){
-        int uid = gelivery.getUid();
-        int oid = gelivery.getOid();
-        int state = gelivery.getState();
+    public Result<String> addDelivery(@RequestBody Delivery delivery){
+        int uid = delivery.getUid();
+        int oid = delivery.getOid();
+        int state = delivery.getState();
         return DeliverycrudService.addDelivery(uid,oid,state);
     }
 

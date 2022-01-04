@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.Pay_goodsMapper">
+    <select id="queryPay_goodsList" resultType="Pay_goods">
+        select * from pay_goods
+    </select>
+    <select id="queryPay_goodsByPid" resultType="Pay_goods">
+        select * from pay_goods where pid = #{pid}
+    </select>
+    <select id="queryPay_goodsByUid" resultType="Pay_goods">
+        select * from pay_goods where uid = #{uid}
+    </select>
+    <select id="queryPay_goodsByOid" resultType="Pay_goods">
+        select * from pay_goods where oid = #{oid}
+    </select>
+    <select id="addPay_goods" parameterType="Pay_goods">
+        insert into pay_goods (pid, oid, uid, state,gcount) values (#{pid},#{oid},#{uid},#{state},#{gcount})
+    </select>
+    <select id="updatePay_goods" parameterType="Pay_goods">
+        update pay_goods set pid=#{pid},oid=#{oid},uid=#{uid},state=#{state},gcount=#{gcount} where pid = #{pid}
+    </select>
+    <select id="deletePay_goods" parameterType="int">
+        delete from pay_goods where pid = #{pid}
+    </select>
+    <select id="selectIdMaxPay_goods" resultType="int">
+        select MAX(pid) from pay_goods
+    </select>
+</mapper>
