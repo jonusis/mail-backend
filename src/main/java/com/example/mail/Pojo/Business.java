@@ -15,6 +15,9 @@ public class Business {
         this.introduction = introduction;
     }
 
+    public Business() {
+    }
+
     public int getBid() {
         return bid;
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.OrderMapper">
+    <select id="queryOrderList" resultType="Order">
+        select * from orders
+    </select>
+    <select id="queryOrderByOid" resultType="Order">
+        select * from orders where oid = #{oid}
+    </select>
+    <select id="queryOrderByBid" resultType="Order">
+        select * from orders where bid = #{bid}
+    </select>
+    <select id="queryOrderByGid" resultType="Order">
+        select * from orders where gid = #{gid}
+    </select>
+    <select id="addOrder" parameterType="Order">
+        insert into orders (oid,state,start_time,end_time,total_price,introduction,bid,gid) values (#{oid},#{state},#{start_time},#{end_time},#{total_price},#{introduction},#{bid},#{gid})
+    </select>
+    <select id="updateOrder" parameterType="Order">
+        update orders set oid=#{oid},state=#{state},start_time=#{start_time},end_time=#{end_time},total_price=#{total_price},introduction=#{introduction},bid=#{bid},gid=#{gid} where oid = #{oid}
+    </select>
+    <select id="deleteOrder" parameterType="int">
+        delete from orders where oid = #{oid}
+    </select>
+    <select id="selectIdMaxOrder" resultType="int">
+        select MAX(oid) from orders
+    </select>
+</mapper>

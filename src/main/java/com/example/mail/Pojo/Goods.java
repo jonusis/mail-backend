@@ -19,6 +19,9 @@ public class Goods {
         this.introduction = introduction;
     }
 
+    public Goods() {
+    }
+
     public int getGid() {
         return gid;
     }
