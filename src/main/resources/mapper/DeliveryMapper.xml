@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.DeliveryMapper">
+    <select id="queryDeliveryList" resultType="Delivery">
+        select * from delivery
+    </select>
+    <select id="queryDeliveryByDid" resultType="Delivery">
+        select * from delivery where did = #{did}
+    </select>
+    <select id="queryDeliveryByUid" resultType="Delivery">
+        select * from delivery where uid = #{uid}
+    </select>
+    <select id="queryDeliveryByOid" resultType="Delivery">
+        select * from delivery where oid = #{oid}
+    </select>
+    <select id="addDelivery" parameterType="Delivery">
+        insert into delivery (did, uid, oid, state) values (#{did},#{uid},#{oid},#{state})
+    </select>
+    <select id="updateDelivery" parameterType="Delivery">
+        update delivery set did=#{did},uid=#{uid},oid=#{oid},state=#{state} where did = #{did}
+    </select>
+    <select id="deleteDelivery" parameterType="int">
+        delete from delivery where did = #{did}
+    </select>
+    <select id="selectIdMaxDelivery" resultType="int">
+        select MAX(did) from delivery
+    </select>
+</mapper>

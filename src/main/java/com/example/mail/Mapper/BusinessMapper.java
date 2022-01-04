@@ -11,13 +11,13 @@ public interface BusinessMapper {
 
     List<Business> queryBusinessList();
 
-    Business queryBusinessById(int uid);
+    Business queryBusinessById(int bid);
 
     void addBusiness(Business Business);
 
     void updateBusiness(Business Business);
 
-    void deleteBusiness(int uid);
+    void deleteBusiness(int bid);
 
     int selectIdMaxBusiness();
 

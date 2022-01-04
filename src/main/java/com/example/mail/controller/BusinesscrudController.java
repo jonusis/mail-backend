@@ -50,9 +50,8 @@ public class BusinesscrudController {
         int bid = business.getBid();
         String name = business.getName();
         String account = business.getAccount();
-        String password = business.getPassword();
         String introduction = business.getIntroduction();
-        return BusinesscrudService.updateBusiness(bid,name,account,password,introduction);
+        return BusinesscrudService.updateBusiness(bid,name,account,introduction);
     }
 
     @CrossOrigin

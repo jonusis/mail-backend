@@ -45,9 +45,11 @@ public class BusinesscrudService {
         return Result.success("success Register");
     }
 
-    public Result<String> updateBusiness(int bid, String name, String account, String password, String introduction) {
+    public Result<String> updateBusiness(int bid, String name, String account, String introduction) {
+        Business business = null;
         try {
-            businessMapper.updateBusiness(new Business(bid,name,account,password,introduction));
+            business = businessMapper.queryBusinessById(bid);
+            businessMapper.updateBusiness(new Business(bid,name,account,business.getPassword(),introduction));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
