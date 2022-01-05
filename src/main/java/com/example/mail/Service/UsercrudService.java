@@ -46,9 +46,10 @@ public class UsercrudService {
         return Result.success("success Register");
     }
 
-    public Result<String> updateUser(int uid, String name, String account, String password, int age, int sex) {
+    public Result<String> updateUser(int uid, String name, String account, int age, int sex) {
         try {
-            userMapper.updateUser(new User(uid,name,account,password,age,sex));
+            User user1 = userMapper.queryUserById(uid);
+            userMapper.updateUser(new User(uid,name,account,user1.getPassword(),age,sex));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
