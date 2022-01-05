@@ -1,4 +1,4 @@
-package com.example.mail.Pojo;
+package com.example.mail.Tool;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

@@ -1,8 +1,8 @@
-package com.example.mail.controller;
+package com.example.mail.Controller;
 
 import com.example.mail.Pojo.Delivery;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

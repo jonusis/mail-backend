@@ -1,9 +1,9 @@
-package com.example.mail.controller;
+package com.example.mail.Controller;
 
 import com.example.mail.Pojo.Order;
-import com.example.mail.Pojo.OrderDetail;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+import com.example.mail.Compound.OrderDetail;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,10 @@ public class OrdercrudController {
     @Autowired
     private com.example.mail.Service.OrdercrudService OrdercrudService;
 
-    @RequestMapping(value = "/queryOrderDetailById", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryOrderDetailByOid", method = RequestMethod.GET)
     public Result<OrderDetail> queryOrderDetailById(@RequestParam String oid){
         int id = Integer.parseInt(oid);
-        return OrdercrudService.queryOrderDetailById(id);
+        return OrdercrudService.queryOrderDetailByOid(id);
     }
 
     @RequestMapping(value = "/queryOrderList", method = RequestMethod.GET)

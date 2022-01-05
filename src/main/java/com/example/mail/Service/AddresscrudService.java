@@ -1,10 +1,10 @@
 package com.example.mail.Service;
 
 import com.example.mail.Mapper.AddressMapper;
-import com.example.mail.Pojo.CodeMsg;
+import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.Pojo.Address;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

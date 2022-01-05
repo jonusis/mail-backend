@@ -1,15 +1,12 @@
-package com.example.mail.controller;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+package com.example.mail.Controller;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import com.example.mail.Pojo.User;
 import com.example.mail.Service.UsercrudService;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController

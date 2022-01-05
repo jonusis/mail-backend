@@ -1,5 +1,9 @@
 package com.example.mail.Service;
 
+import com.example.mail.Compound.OrderDetail;
+import com.example.mail.ResultSet.CodeMsg;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import com.example.mail.Mapper.BusinessMapper;
 import com.example.mail.Mapper.OrderMapper;
 import com.example.mail.Mapper.Pay_goodsMapper;
@@ -9,7 +13,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +25,7 @@ public class OrdercrudService {
     Pay_goodsMapper pay_goodsMapper;
 
 
-    public Result<OrderDetail> queryOrderDetailById(int oid) {
+    public Result<OrderDetail> queryOrderDetailByOid(int oid) {
         Order order = orderMapper.queryOrderByOid(oid);
         Business business = businessMapper.queryBusinessById(order.getBid());
         List<User> users = pay_goodsMapper.queryUsersByOid(oid);

@@ -1,4 +1,4 @@
-package com.example.mail.Pojo;
+package com.example.mail.Tool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

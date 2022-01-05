@@ -4,9 +4,9 @@ public class Type {
     private int tid;
     private String broadHeading;
     private String type;
-    private int url;
+    private String url;
 
-    public Type(int tid, String broadHeading, String type, int url) {
+    public Type(int tid, String broadHeading, String type, String url) {
         this.tid = tid;
         this.broadHeading = broadHeading;
         this.type = type;
@@ -40,11 +40,11 @@ public class Type {
         this.type = type;
     }
 
-    public int getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(int url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 }

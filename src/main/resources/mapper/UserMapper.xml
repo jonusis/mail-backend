@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.UserMapper">
     <select id="queryUserList" resultType="User">
-        select * from Users
+        select * from users
     </select>
     <select id="queryUserById" resultType="User">
-        select * from Users where uid = #{uid}
+        select * from users where uid = #{uid}
     </select>
     <select id="addUser" parameterType="User">
         insert into users (uid,name,account,password,age,sex) values (#{uid},#{name},#{account},#{password},#{age},#{sex})
@@ -19,7 +19,7 @@
         delete from users where uid = #{uid}
     </select>
     <select id="selectIdMaxUser" resultType="int">
-        select MAX(uid) from Users
+        select MAX(uid) from users
     </select>
     <select id="selectUserLogin" resultType="User">
         select * from users where account=#{account} and password = #{password}

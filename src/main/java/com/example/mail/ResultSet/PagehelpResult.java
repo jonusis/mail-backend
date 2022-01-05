@@ -1,4 +1,4 @@
-package com.example.mail.Pojo;
+package com.example.mail.ResultSet;
 
 public class PagehelpResult<T> {
 

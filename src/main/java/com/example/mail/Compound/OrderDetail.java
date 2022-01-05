@@ -1,4 +1,8 @@
-package com.example.mail.Pojo;
+package com.example.mail.Compound;
+
+import com.example.mail.Pojo.Business;
+import com.example.mail.Pojo.Order;
+import com.example.mail.Pojo.User;
 
 import java.util.List;
 

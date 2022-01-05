@@ -1,5 +1,8 @@
 package com.example.mail.Service;
 
+import com.example.mail.ResultSet.CodeMsg;
+import com.example.mail.ResultSet.PagehelpResult;
+import com.example.mail.ResultSet.Result;
 import com.example.mail.Mapper.Pay_goodsMapper;
 import com.example.mail.Pojo.*;
 import com.github.pagehelper.PageHelper;
