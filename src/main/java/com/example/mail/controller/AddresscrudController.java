@@ -12,11 +12,11 @@ import java.util.List;
 @RestController
 @Api(tags = "address增删查改")
 @RequestMapping(value = "/v1/address")
+@CrossOrigin(origins = "*")
 public class AddresscrudController {
     @Autowired
     private com.example.mail.Service.AddresscrudService AddresscrudService;
 
-    @CrossOrigin
     @RequestMapping(value = "/queryAddressList", method = RequestMethod.GET)
     public PagehelpResult<List<Address>> queryAddressList(@RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){
         int pagenum = Integer.parseInt(pageNum);
@@ -24,14 +24,12 @@ public class AddresscrudController {
         return AddresscrudService.queryAddressList(pagenum,pagesize);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/queryAddressByAid", method = RequestMethod.GET)
     public Result<Address> queryAddressByAid(@RequestParam String aid){
         int id = Integer.parseInt(aid);
         return AddresscrudService.queryAddressByAid(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/queryAddressByUid", method = RequestMethod.GET)
     public PagehelpResult<List<Address>> queryAddressByBid(@RequestParam String uid, @RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){
         int pagenum = Integer.parseInt(pageNum);
@@ -39,9 +37,7 @@ public class AddresscrudController {
         int id = Integer.parseInt(uid);
         return AddresscrudService.queryAddressByUid(id,pagenum,pagesize);
     }
-
-
-    @CrossOrigin
+    
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
     public Result<String> addAddress(@RequestBody Address address){
         int uid = address.getUid();
@@ -53,7 +49,6 @@ public class AddresscrudController {
         return AddresscrudService.addAddress(uid, province, city, detailedAddress, telephone, receivierName);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateAddress", method = RequestMethod.PUT)
     public Result<String> updateAddress(@RequestBody Address address){
         int aid = address.getAid();
@@ -66,7 +61,6 @@ public class AddresscrudController {
         return AddresscrudService.updateAddress(aid,uid, province, city, detailedAddress, telephone, receivierName);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/deleteAddress", method = RequestMethod.DELETE)
     public Result<String> deleteAddress(@RequestParam String aid){
         int id = Integer.parseInt(aid);

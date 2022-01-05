@@ -13,12 +13,11 @@ import java.util.List;
 @RestController
 @Api(tags = "business增删查改")
 @RequestMapping(value = "/v1/business")
-
+@CrossOrigin(origins = "*")
 public class BusinesscrudController {
     @Autowired
     private BusinesscrudService BusinesscrudService;
 
-    @CrossOrigin
     @RequestMapping(value = "/queryBusinessList", method = RequestMethod.GET)
     public PagehelpResult<List<Business>> queryBusinessList(@RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){
         int pagenum = Integer.parseInt(pageNum);
@@ -26,15 +25,12 @@ public class BusinesscrudController {
         return BusinesscrudService.queryBusinessList(pagenum,pagesize);
     }
 
-
-    @CrossOrigin
     @RequestMapping(value = "/queryBusinessById", method = RequestMethod.GET)
     public Result<Business> queryBusinessById(@RequestParam String bid){
         int id = Integer.parseInt(bid);
         return BusinesscrudService.queryBusinessById(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/addBusiness", method = RequestMethod.POST)
     public Result<String> addBusiness(@RequestBody Business business){
         String name = business.getName();
@@ -44,7 +40,6 @@ public class BusinesscrudController {
         return BusinesscrudService.addBusiness(name,account,password,introduction);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateBusiness", method = RequestMethod.PUT)
     public Result<String> updateBusiness(@RequestBody Business business){
         int bid = business.getBid();
@@ -54,14 +49,12 @@ public class BusinesscrudController {
         return BusinesscrudService.updateBusiness(bid,name,account,introduction);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/deleteBusiness", method = RequestMethod.DELETE)
     public Result<String> deleteBusiness(@RequestParam String bid){
         int id = Integer.parseInt(bid);
         return BusinesscrudService.deleteBusiness(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/BusinessLogin", method = RequestMethod.GET)
     public Result<String> UserLogin(@RequestParam String account,@RequestParam String password){
         return BusinesscrudService.Login(account,password);

@@ -12,11 +12,11 @@ import java.util.List;
 @RestController
 @Api(tags = "delivery增删查改")
 @RequestMapping(value = "/v1/delivery")
+@CrossOrigin(origins = "*")
 public class DeliverycrudController {
     @Autowired
     private com.example.mail.Service.DeliverycrudService DeliverycrudService;
 
-    @CrossOrigin
     @RequestMapping(value = "/queryDeliveryList", method = RequestMethod.GET)
     public PagehelpResult<List<Delivery>> queryDeliveryList(@RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){
         int pagenum = Integer.parseInt(pageNum);
@@ -24,29 +24,24 @@ public class DeliverycrudController {
         return DeliverycrudService.queryDeliveryList(pagenum,pagesize);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/queryDeliveryByDid", method = RequestMethod.GET)
     public Result<Delivery> queryDeliveryByDid(@RequestParam String did){
         int id = Integer.parseInt(did);
         return DeliverycrudService.queryDeliveryByDid(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/queryDeliveryByUid", method = RequestMethod.GET)
     public Result<Delivery> queryDeliveryByUid(@RequestParam String uid){
         int id = Integer.parseInt(uid);
         return DeliverycrudService.queryDeliveryByUid(id);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/queryDeliveryByOid", method = RequestMethod.GET)
     public Result<Delivery> queryDeliveryByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
         return DeliverycrudService.queryDeliveryByOid(id);
     }
 
-
-    @CrossOrigin
     @RequestMapping(value = "/addDelivery", method = RequestMethod.POST)
     public Result<String> addDelivery(@RequestBody Delivery delivery){
         int uid = delivery.getUid();
@@ -55,7 +50,6 @@ public class DeliverycrudController {
         return DeliverycrudService.addDelivery(uid,oid,state);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateDelivery", method = RequestMethod.PUT)
     public Result<String> updateDelivery(@RequestBody Delivery delivery){
         int did = delivery.getDid();
@@ -65,7 +59,6 @@ public class DeliverycrudController {
         return DeliverycrudService.updateDelivery(did,uid,oid,state);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/deleteDelivery", method = RequestMethod.DELETE)
     public Result<String> deleteDelivery(@RequestParam String did){
         int id = Integer.parseInt(did);
