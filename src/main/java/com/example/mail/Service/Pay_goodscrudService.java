@@ -1,10 +1,7 @@
 package com.example.mail.Service;
 
 import com.example.mail.Mapper.Pay_goodsMapper;
-import com.example.mail.Pojo.CodeMsg;
-import com.example.mail.Pojo.Pay_goods;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+import com.example.mail.Pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,16 @@ import java.util.List;
 public class Pay_goodscrudService {
     @Autowired
     Pay_goodsMapper pay_goodsMapper;
+
+//    public Result<List<User>> queryUsersByOid(int oid) {
+//        List<User> users = null;
+//        try {
+//            users = pay_goodsMapper.queryUsersByOid(oid);
+//        } catch (Exception e) {
+//            return Result.error(new CodeMsg(0, e.toString()));
+//        }
+//        return Result.success(users);
+//    }
 
     public PagehelpResult<List<Pay_goods>> queryPay_goodsList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -37,8 +44,8 @@ public class Pay_goodscrudService {
         return Result.success(pay_goods);
     }
 
-    public Result<Pay_goods> queryPay_goodsByUid(int uid) {
-        Pay_goods pay_goods = null;
+    public Result<List<Pay_goods>> queryPay_goodsByUid(int uid) {
+        List<Pay_goods> pay_goods = null;
         try {
             pay_goods = pay_goodsMapper.queryPay_goodsByUid(uid);
         } catch (Exception e) {
@@ -47,8 +54,8 @@ public class Pay_goodscrudService {
         return Result.success(pay_goods);
     }
 
-    public Result<Pay_goods> queryPay_goodsByOid(int oid) {
-        Pay_goods pay_goods = null;
+    public Result<List<Pay_goods>> queryPay_goodsByOid(int oid) {
+        List<Pay_goods> pay_goods = null;
         try {
             pay_goods = pay_goodsMapper.queryPay_goodsByOid(oid);
         } catch (Exception e) {

@@ -26,13 +26,13 @@ public class BusinesscrudService {
     }
 
     public Result<Business> queryBusinessById(int bid) {
-        Business buiness = null;
+        Business business = null;
         try {
-            buiness = businessMapper.queryBusinessById(bid);
+            business = businessMapper.queryBusinessById(bid);
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success(buiness);
+        return Result.success(business);
     }
 
     public Result<String> addBusiness(String name, String account, String password, String introduction){

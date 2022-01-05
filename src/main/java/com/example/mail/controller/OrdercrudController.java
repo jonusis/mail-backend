@@ -1,6 +1,7 @@
 package com.example.mail.controller;
 
 import com.example.mail.Pojo.Order;
+import com.example.mail.Pojo.OrderDetail;
 import com.example.mail.Pojo.PagehelpResult;
 import com.example.mail.Pojo.Result;
 import io.swagger.annotations.Api;
@@ -16,6 +17,12 @@ import java.util.List;
 public class OrdercrudController {
     @Autowired
     private com.example.mail.Service.OrdercrudService OrdercrudService;
+
+    @RequestMapping(value = "/queryOrderDetailById", method = RequestMethod.GET)
+    public Result<OrderDetail> queryOrderDetailById(@RequestParam String oid){
+        int id = Integer.parseInt(oid);
+        return OrdercrudService.queryOrderDetailById(id);
+    }
 
     @RequestMapping(value = "/queryOrderList", method = RequestMethod.GET)
     public PagehelpResult<List<Order>> queryOrderList(@RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){

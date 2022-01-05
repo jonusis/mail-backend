@@ -1,21 +1,34 @@
 package com.example.mail.Service;
 
+import com.example.mail.Mapper.BusinessMapper;
 import com.example.mail.Mapper.OrderMapper;
-import com.example.mail.Pojo.CodeMsg;
-import com.example.mail.Pojo.Order;
-import com.example.mail.Pojo.PagehelpResult;
-import com.example.mail.Pojo.Result;
+import com.example.mail.Mapper.Pay_goodsMapper;
+import com.example.mail.Pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrdercrudService {
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    BusinessMapper businessMapper;
+    @Autowired
+    Pay_goodsMapper pay_goodsMapper;
+
+
+    public Result<OrderDetail> queryOrderDetailById(int oid) {
+        Order order = orderMapper.queryOrderByOid(oid);
+        Business business = businessMapper.queryBusinessById(order.getBid());
+        List<User> users = pay_goodsMapper.queryUsersByOid(oid);
+        OrderDetail orderDetail = new OrderDetail(users,business,order);
+        return Result.success(orderDetail);
+    }
 
     public PagehelpResult<List<Order>> queryOrderList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);

@@ -32,13 +32,13 @@ public class Pay_goodscrudController {
     }
 
     @RequestMapping(value = "/queryPay_goodsByUid", method = RequestMethod.GET)
-    public Result<Pay_goods> queryPay_goodsByUid(@RequestParam String uid){
+    public Result<List<Pay_goods>> queryPay_goodsByUid(@RequestParam String uid){
         int id = Integer.parseInt(uid);
         return Pay_goodscrudService.queryPay_goodsByUid(id);
     }
 
     @RequestMapping(value = "/queryPay_goodsByOid", method = RequestMethod.GET)
-    public Result<Pay_goods> queryPay_goodsByOid(@RequestParam String oid){
+    public Result<List<Pay_goods>> queryPay_goodsByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
         return Pay_goodscrudService.queryPay_goodsByOid(id);
     }
