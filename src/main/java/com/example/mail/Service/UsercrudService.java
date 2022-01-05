@@ -55,10 +55,9 @@ public class UsercrudService {
     }
 
     public Result<String> updateUser(int uid, String name, String account, int age, int sex) {
-        User user = null;
         try {
-            user = userMapper.queryUserById(uid);
-            userMapper.updateUser(new User(uid,name,account,user.getPassword(),age,sex));
+            User user1 = userMapper.queryUserById(uid);
+            userMapper.updateUser(new User(uid,name,account,user1.getPassword(),age,sex));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
