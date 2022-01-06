@@ -40,7 +40,7 @@ public class Pay_goodscrudController {
     @RequestMapping(value = "/queryPay_goodsByOid", method = RequestMethod.GET)
     public Result<List<Pay_goods>> queryPay_goodsByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
-        return Pay_goodscrudService.queryPay_goodsByOid(id);
+        return Result.success(Pay_goodscrudService.queryPay_goodsByOid(id));
     }
 
     @RequestMapping(value = "/addPay_goods", method = RequestMethod.POST)
@@ -49,7 +49,8 @@ public class Pay_goodscrudController {
         int oid = pay_goods.getOid();
         int state = pay_goods.getState();
         int gcount = pay_goods.getGcount();
-        return Pay_goodscrudService.addPay_goods(uid,oid,state,gcount);
+        int aid = pay_goods.getAid();
+        return Pay_goodscrudService.addPay_goods(uid,oid,state,gcount,aid);
     }
 
     @RequestMapping(value = "/updatePay_goods", method = RequestMethod.PUT)
@@ -59,7 +60,8 @@ public class Pay_goodscrudController {
         int oid = pay_goods.getOid();
         int state = pay_goods.getState();
         int gcount = pay_goods.getGcount();
-        return Pay_goodscrudService.updatePay_goods(pid,uid,oid,state,gcount);
+        int aid = pay_goods.getAid();
+        return Pay_goodscrudService.updatePay_goods(pid,uid,oid,state,gcount,aid);
     }
 
     @RequestMapping(value = "/deletePay_goods", method = RequestMethod.DELETE)

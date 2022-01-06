@@ -1,12 +1,15 @@
 package com.example.mail.Controller;
 
+import com.example.mail.Compound.DeliveryPay_goods;
 import com.example.mail.Pojo.Delivery;
+import com.example.mail.Pojo.Pay_goods;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +19,30 @@ import java.util.List;
 public class DeliverycrudController {
     @Autowired
     private com.example.mail.Service.DeliverycrudService DeliverycrudService;
+    @Autowired
+    private com.example.mail.Service.Pay_goodscrudService pay_goodscrudService;
+
+    @RequestMapping(value = "/getDeliveryByUid", method = RequestMethod.GET)
+    public Result<List<DeliveryPay_goods>> getDeliveryByUid(@RequestParam String uid){
+        int id = Integer.parseInt(uid);
+        DeliveryPay_goods deliveryPay_goods = null;
+        List<DeliveryPay_goods> deliveryPay_goodsList = new ArrayList<>();
+        int oid = 0;
+        List<Delivery> deliveryList = DeliverycrudService.queryDeliveryByUid(id);
+        for(int i = 0; i < deliveryList.size(); i++) {
+            oid = deliveryList.get(i).getOid();
+            Pay_goods pay_goods = pay_goodscrudService.queryPay_goodsByOidUid(oid,id);
+            deliveryPay_goods = new DeliveryPay_goods(deliveryList.get(i),pay_goods);
+            deliveryPay_goodsList.add(deliveryPay_goods);
+        }
+        return Result.success(deliveryPay_goodsList);
+    }
+
+    @RequestMapping(value = "/getDeliveryByOid", method = RequestMethod.GET)
+    public Result<Delivery> getDeliveryByOid(@RequestParam String oid){
+        int id = Integer.parseInt(oid);
+        return DeliverycrudService.queryDeliveryByOid(id);
+    }
 
     @RequestMapping(value = "/queryDeliveryList", method = RequestMethod.GET)
     public PagehelpResult<List<Delivery>> queryDeliveryList(@RequestParam(defaultValue = "1") String pageNum, @RequestParam(defaultValue = "5") String pageSize){
@@ -31,9 +58,9 @@ public class DeliverycrudController {
     }
 
     @RequestMapping(value = "/queryDeliveryByUid", method = RequestMethod.GET)
-    public Result<Delivery> queryDeliveryByUid(@RequestParam String uid){
+    public Result<List<Delivery>> queryDeliveryByUid(@RequestParam String uid){
         int id = Integer.parseInt(uid);
-        return DeliverycrudService.queryDeliveryByUid(id);
+        return Result.success(DeliverycrudService.queryDeliveryByUid(id));
     }
 
     @RequestMapping(value = "/queryDeliveryByOid", method = RequestMethod.GET)

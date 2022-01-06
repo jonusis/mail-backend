@@ -10,6 +10,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface Pay_goodsMapper {
+    Pay_goods queryPay_goodsByOidUid(int oid, int uid);
+
     List<User> queryUsersByOid(int oid);
 
     List<Pay_goods> queryPay_goodsList();

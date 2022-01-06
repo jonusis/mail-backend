@@ -29,14 +29,14 @@ public class UsercrudService {
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
-    public Result<User> queryUserById(int uid) {
+    public User queryUserById(int uid) {
         User user = null;
         try {
             user = userMapper.queryUserById(uid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(user);
+        return user;
     }
 
     public Result<String> addUser(String name, String account, String password, int age, int sex){

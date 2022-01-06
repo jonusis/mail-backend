@@ -1,6 +1,8 @@
 package com.example.mail.Service;
 
 import com.example.mail.Mapper.AddressMapper;
+import com.example.mail.Mapper.OrderMapper;
+import com.example.mail.Mapper.Pay_goodsMapper;
 import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.Pojo.Address;
 import com.example.mail.ResultSet.PagehelpResult;
@@ -16,6 +18,18 @@ import java.util.List;
 public class AddresscrudService {
     @Autowired
     AddressMapper addressMapper;
+    @Autowired
+    Pay_goodsMapper pay_goodsMapper;
+
+    public Result<List<Address>> getAddressByUid(int uid) {
+        List<Address> address = null;   //不分页
+        try {
+            address = addressMapper.queryAddressByUid(uid);
+        } catch (Exception e) {
+            return Result.error(new CodeMsg(0, e.toString()));
+        }
+        return Result.success(address);
+    }
 
     public PagehelpResult<List<Address>> queryAddressList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -27,18 +41,18 @@ public class AddresscrudService {
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
-    public Result<Address> queryAddressByAid(int aid) {
+    public Address queryAddressByAid(int aid) {
         Address address = null;
         try {
             address = addressMapper.queryAddressByAid(aid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(address);
+        return address;
     }
 
     public PagehelpResult<List<Address>> queryAddressByUid(int uid, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum,pageSize); //分页
         List<Address> address = addressMapper.queryAddressByUid(uid);
         PageInfo<Address> pageInfo = new PageInfo<>(address);
         List<Address> list = pageInfo.getList();

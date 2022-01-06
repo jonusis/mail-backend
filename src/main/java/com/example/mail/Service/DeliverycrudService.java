@@ -37,14 +37,14 @@ public class DeliverycrudService {
         return Result.success(delivery);
     }
 
-    public Result<Delivery> queryDeliveryByUid(int uid) {
-        Delivery delivery = null;
+    public List<Delivery> queryDeliveryByUid(int uid) {
+        List<Delivery> delivery = null;
         try {
             delivery = deliveryMapper.queryDeliveryByUid(uid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(delivery);
+        return delivery;
     }
 
     public Result<Delivery> queryDeliveryByOid(int oid) {

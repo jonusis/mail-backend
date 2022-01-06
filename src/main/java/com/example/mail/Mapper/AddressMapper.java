@@ -15,6 +15,7 @@ public interface AddressMapper {
 
     List<Address> queryAddressByUid(int uid);
 
+    List<Address> getAddressByUid(int uid);
 
     void addAddress(Address address);
 

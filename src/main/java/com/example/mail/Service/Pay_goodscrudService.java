@@ -17,6 +17,16 @@ public class Pay_goodscrudService {
     @Autowired
     Pay_goodsMapper pay_goodsMapper;
 
+    public Pay_goods queryPay_goodsByOidUid(int oid, int uid) {
+        Pay_goods pay_goods = null;
+        try {
+            pay_goods = pay_goodsMapper.queryPay_goodsByOidUid(oid,uid);
+        } catch (Exception e) {
+            return null;
+        }
+        return pay_goods;
+    }
+
 //    public Result<List<User>> queryUsersByOid(int oid) {
 //        List<User> users = null;
 //        try {
@@ -57,31 +67,31 @@ public class Pay_goodscrudService {
         return Result.success(pay_goods);
     }
 
-    public Result<List<Pay_goods>> queryPay_goodsByOid(int oid) {
+    public List<Pay_goods> queryPay_goodsByOid(int oid) {
         List<Pay_goods> pay_goods = null;
         try {
             pay_goods = pay_goodsMapper.queryPay_goodsByOid(oid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(pay_goods);
+        return pay_goods;
     }
 
-    public Result<String> addPay_goods(int uid, int oid, int state,int gcount){
+    public Result<String> addPay_goods(int uid, int oid, int state,int gcount,int aid){
         try{
             int id = pay_goodsMapper.selectIdMaxPay_goods() + 1;
-            pay_goodsMapper.addPay_goods(new Pay_goods(id,uid,oid,state,gcount));
+            pay_goodsMapper.addPay_goods(new Pay_goods(id,uid,oid,state,gcount,aid));
         }catch (Exception e){
             return Result.error(new CodeMsg(0,e.toString()));
         }
         return Result.success("success Register");
     }
 
-    public Result<String> updatePay_goods(int pid, int uid, int oid, int state,int gcount) {
+    public Result<String> updatePay_goods(int pid, int uid, int oid, int state,int gcount,int aid) {
         Pay_goods pay_goods = null;
         try {
             pay_goods = pay_goodsMapper.queryPay_goodsByPid(pid);
-            pay_goodsMapper.updatePay_goods(new Pay_goods(pid,uid,oid,state,gcount));
+            pay_goodsMapper.updatePay_goods(new Pay_goods(pid,uid,oid,state,gcount,aid));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }

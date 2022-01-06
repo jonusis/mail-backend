@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.Pay_goodsMapper">
+    <select id="queryPay_goodsByOidUid" resultType="Pay_goods">
+        SELECT * FROM pay_goods
+                           WHERE oid = #{oid} and uid = #{uid}
+    </select>
     <select id="queryUsersByOid" resultType="User">
         SELECT * FROM pay_goods
             LEFT JOIN users ON pay_goods.uid=users.uid WHERE oid = #{oid}

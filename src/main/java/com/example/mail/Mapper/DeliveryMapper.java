@@ -13,7 +13,7 @@ public interface DeliveryMapper {
 
     Delivery queryDeliveryByDid(int did);
 
-    Delivery queryDeliveryByUid(int uid);
+    List<Delivery> queryDeliveryByUid(int uid);
 
     Delivery queryDeliveryByOid(int oid);
 

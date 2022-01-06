@@ -29,7 +29,7 @@ public class UsercrudController {
     @RequestMapping(value = "/queryUserById", method = RequestMethod.GET)
     public Result<User> queryUserById(@RequestParam String uid){
         int id = Integer.parseInt(uid);
-        return UsercrudService.queryUserById(id);
+        return Result.success(UsercrudService.queryUserById(id));
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
