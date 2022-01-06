@@ -23,7 +23,6 @@ public class Pay_goodscrudController {
         int pagesize = Integer.parseInt(pageSize);
         return Pay_goodscrudService.queryPay_goodsList(pagenum,pagesize);
     }
-
     
     @RequestMapping(value = "/queryPay_goodsByPid", method = RequestMethod.GET)
     public Result<Pay_goods> queryPay_goodsByPid(@RequestParam String pid){

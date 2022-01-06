@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.DeliveryMapper">
+    <select id="getDeliveryByUidOid" resultType="Delivery">
+        select * from delivery where uid = #{uid} and oid = #{oid}
+    </select>
     <select id="queryDeliveryList" resultType="Delivery">
         select * from delivery
     </select>

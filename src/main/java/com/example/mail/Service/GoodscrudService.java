@@ -28,14 +28,14 @@ public class GoodscrudService {
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
-    public Result<Goods> queryGoodsByGid(int gid) {
+    public Goods queryGoodsByGid(int gid) {
         Goods goods = null;
         try {
             goods = goodsMapper.queryGoodsByGid(gid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(goods);
+        return goods;
     }
 
     public PagehelpResult<List<Goods>> queryGoodsByBid(int bid, Integer pageNum, Integer pageSize) {

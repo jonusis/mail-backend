@@ -28,7 +28,7 @@ public class GoodscrudController {
     @RequestMapping(value = "/queryGoodsByGid", method = RequestMethod.GET)
     public Result<Goods> queryGoodsByGid(@RequestParam String gid){
         int id = Integer.parseInt(gid);
-        return GoodscrudService.queryGoodsByGid(id);
+        return Result.success(GoodscrudService.queryGoodsByGid(id));
     }
 
     @RequestMapping(value = "/queryGoodsByBid", method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.example.mail.Mapper;
 
+import com.example.mail.Pojo.Delivery;
 import com.example.mail.Pojo.Pay_goods;
 import com.example.mail.Pojo.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +11,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface Pay_goodsMapper {
+    Pay_goods getPay_goodsByUidOid(int uid, int oid);
+
     Pay_goods queryPay_goodsByOidUid(int oid, int uid);
 
     List<User> queryUsersByOid(int oid);

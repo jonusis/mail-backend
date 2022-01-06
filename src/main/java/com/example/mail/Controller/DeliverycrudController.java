@@ -22,8 +22,8 @@ public class DeliverycrudController {
     @Autowired
     private com.example.mail.Service.Pay_goodscrudService pay_goodscrudService;
 
-    @RequestMapping(value = "/getDeliveryByUid", method = RequestMethod.GET)
-    public Result<List<DeliveryPay_goods>> getDeliveryByUid(@RequestParam String uid){
+    @RequestMapping(value = "/getDeliveryPay_goodsByUid", method = RequestMethod.GET)
+    public Result<List<DeliveryPay_goods>> getDeliveryPay_goodsByUid(@RequestParam String uid){
         int id = Integer.parseInt(uid);
         DeliveryPay_goods deliveryPay_goods = null;
         List<DeliveryPay_goods> deliveryPay_goodsList = new ArrayList<>();

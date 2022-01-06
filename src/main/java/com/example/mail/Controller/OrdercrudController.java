@@ -1,7 +1,10 @@
 package com.example.mail.Controller;
 
+import com.example.mail.Pojo.Delivery;
+import com.example.mail.Pojo.Goods;
 import com.example.mail.Pojo.Order;
 import com.example.mail.Compound.OrderDetail;
+import com.example.mail.Pojo.Pay_goods;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
 import io.swagger.annotations.Api;
@@ -17,6 +20,33 @@ import java.util.List;
 public class OrdercrudController {
     @Autowired
     private com.example.mail.Service.OrdercrudService OrdercrudService;
+    @Autowired
+    private com.example.mail.Service.Pay_goodscrudService pay_goodscrudService;
+    @Autowired
+    private com.example.mail.Service.DeliverycrudService DeliverycrudService;
+    @Autowired
+    private com.example.mail.Service.GoodscrudService GoodscrudService;
+
+    @RequestMapping(value = "/queryGoodsByOid", method = RequestMethod.GET)
+    public Goods queryGoodsByOid(@RequestParam String oid){
+        int oidInt = Integer.parseInt(oid);
+        int gid = OrdercrudService.queryOrderByOid(oidInt).getGid();
+        return GoodscrudService.queryGoodsByGid(gid);
+    }
+
+    @RequestMapping(value = "/getDeliveryByUidOid", method = RequestMethod.GET)
+    public Result<Delivery> getDeliveryByUidOid(@RequestParam String uid,@RequestParam String oid){
+        int uidInt = Integer.parseInt(uid);
+        int oidInt = Integer.parseInt(oid);
+        return Result.success(DeliverycrudService.getDeliveryByUidOid(uidInt,oidInt));
+    }
+
+    @RequestMapping(value = "/getPay_goodsByUidOid", method = RequestMethod.GET)
+    public Result<Pay_goods> getPay_goodsByUidOid(@RequestParam String uid, @RequestParam String oid){
+        int uidInt = Integer.parseInt(uid);
+        int oidInt = Integer.parseInt(oid);
+        return Result.success(pay_goodscrudService.queryPay_goodsByOidUid(uidInt,oidInt));
+    }
 
     @RequestMapping(value = "/queryOrderDetailByOid", method = RequestMethod.GET)
     public Result<OrderDetail> queryOrderDetailById(@RequestParam String oid){
@@ -34,7 +64,7 @@ public class OrdercrudController {
     @RequestMapping(value = "/queryOrderByOid", method = RequestMethod.GET)
     public Result<Order> queryOrderByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
-        return OrdercrudService.queryOrderByOid(id);
+        return Result.success(OrdercrudService.queryOrderByOid(id));
     }
 
     @RequestMapping(value = "/queryOrderByBid", method = RequestMethod.GET)

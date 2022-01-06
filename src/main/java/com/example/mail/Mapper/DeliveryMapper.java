@@ -9,6 +9,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DeliveryMapper {
+    Delivery getDeliveryByUidOid(int uid, int oid);
+
     List<Delivery> queryDeliveryList();
 
     Delivery queryDeliveryByDid(int did);

@@ -43,14 +43,14 @@ public class OrdercrudService {
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
-    public Result<Order> queryOrderByOid(int oid) {
+    public Order queryOrderByOid(int oid) {
         Order order = null;
         try {
             order = orderMapper.queryOrderByOid(oid);
         } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
+            return null;
         }
-        return Result.success(order);
+        return order;
     }
 
     public PagehelpResult<List<Order>> queryOrderByBid(int bid, Integer pageNum, Integer pageSize) {

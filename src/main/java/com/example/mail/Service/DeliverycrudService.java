@@ -17,6 +17,16 @@ public class DeliverycrudService {
     @Autowired
     DeliveryMapper deliveryMapper;
 
+    public Delivery getDeliveryByUidOid(int uid, int oid) {
+        Delivery delivery = null;
+        try {
+            delivery = deliveryMapper.getDeliveryByUidOid(uid,oid);
+        } catch (Exception e) {
+            return null;
+        }
+        return delivery;
+    }
+
     public PagehelpResult<List<Delivery>> queryDeliveryList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Delivery> deliveries = deliveryMapper.queryDeliveryList();
