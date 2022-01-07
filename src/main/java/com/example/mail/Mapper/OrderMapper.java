@@ -25,5 +25,5 @@ public interface OrderMapper {
 
     int selectIdMaxOrder();
 
-    List<Order> searchOrder(String state, String total_price);
+    List<Order> searchOrder(int state, int total_price);
 }

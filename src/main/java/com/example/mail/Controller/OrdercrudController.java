@@ -33,7 +33,7 @@ public class OrdercrudController {
         int stateInt = Integer.parseInt(state);
         int total_priceInt = Integer.parseInt(total_price);
         PageHelper.startPage(pagenum,pagesize);
-        List<Order> orderList = OrdercrudService.searchOrder(state,total_price);
+        List<Order> orderList = OrdercrudService.searchOrder(stateInt,total_priceInt);
         PageInfo<Order> pageInfo = new PageInfo<>(orderList);
         int pageNumber = pageInfo.getPageNum();
         int PageSize = pageInfo.getPages();
