@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface GoodsMapper {
+    List<Goods> searchGoods(int gid,int bid,String type);
 
     List<Goods> queryGoodsList();
 

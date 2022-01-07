@@ -1,12 +1,11 @@
 package com.example.mail.Controller;
 
-import com.example.mail.Pojo.Delivery;
-import com.example.mail.Pojo.Goods;
-import com.example.mail.Pojo.Order;
+import com.example.mail.Pojo.*;
 import com.example.mail.Compound.OrderDetail;
-import com.example.mail.Pojo.Pay_goods;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +25,20 @@ public class OrdercrudController {
     private com.example.mail.Service.DeliverycrudService DeliverycrudService;
     @Autowired
     private com.example.mail.Service.GoodscrudService GoodscrudService;
+
+    @RequestMapping(value = "/searchUser", method = RequestMethod.GET)
+    public PagehelpResult<List<Order>> searchOrder(@RequestParam(defaultValue = "1000") String state, @RequestParam(defaultValue = "0") String total_price, @RequestParam(defaultValue = "1",required = false) String pageNum, @RequestParam(defaultValue = "8",required = false) String pageSize){
+        int pagenum = Integer.parseInt(pageNum);
+        int pagesize = Integer.parseInt(pageSize);
+        int stateInt = Integer.parseInt(state);
+        int total_priceInt = Integer.parseInt(total_price);
+        PageHelper.startPage(pagenum,pagesize);
+        List<Order> orderList = OrdercrudService.searchOrder(state,total_price);
+        PageInfo<Order> pageInfo = new PageInfo<>(orderList);
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(orderList,pageNumber,PageSize);
+    }
 
     @RequestMapping(value = "/queryGoodsByOid", method = RequestMethod.GET)
     public Goods queryGoodsByOid(@RequestParam String oid){

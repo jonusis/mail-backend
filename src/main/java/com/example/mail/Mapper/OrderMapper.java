@@ -24,4 +24,6 @@ public interface OrderMapper {
     void deleteOrder(int oid);
 
     int selectIdMaxOrder();
+
+    List<Order> searchOrder(String state, String total_price);
 }

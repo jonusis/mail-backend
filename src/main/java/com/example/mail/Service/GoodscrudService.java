@@ -18,6 +18,11 @@ public class GoodscrudService {
     @Autowired
     GoodsMapper goodsMapper;
 
+    public List<Goods> searchGoods(int gid, int bid, String type) {
+        List<Goods> goods = goodsMapper.searchGoods(gid,bid,type);
+        return goods;
+    }
+
     public PagehelpResult<List<Goods>> queryGoodsList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Goods> goods = goodsMapper.queryGoodsList();

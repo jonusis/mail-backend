@@ -22,4 +22,8 @@ public interface UserMapper {
     int selectIdMaxUser();
 
     List<User> selectUserLogin(String account,String password);
+
+    List<User> queryUserByName(String name);
+
+    List<User> searchUser(String name, String account, int age, int sex);
 }

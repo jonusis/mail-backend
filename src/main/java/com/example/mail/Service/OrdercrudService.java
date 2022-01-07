@@ -100,4 +100,9 @@ public class OrdercrudService {
         }
         return Result.success("success deleteOrder");
     }
+
+    public List<Order> searchOrder(String state, String total_price) {
+        List<Order> orderList = orderMapper.searchOrder(state,total_price);
+        return orderList;
+    }
 }

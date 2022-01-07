@@ -18,6 +18,11 @@ public class UsercrudService {
     @Autowired
     UserMapper userMapper;
 
+    public List<User> searchUser(String name, String account, int age, int sex) {
+        List<User> userList = userMapper.searchUser(name,account,age,sex);
+        return userList;
+    }
+
     public PagehelpResult<List<User>> queryUserList(Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum,pageSize);
@@ -78,4 +83,13 @@ public class UsercrudService {
         }
     }
 
+    public PagehelpResult<List<User>> queryUserByName(String name, int pagenum, int pagesize) {
+        PageHelper.startPage(pagenum,pagesize);
+        List<User> users = userMapper.queryUserByName(name);
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        List<User> list = pageInfo.getList();
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
+    }
 }

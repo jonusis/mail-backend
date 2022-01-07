@@ -39,7 +39,7 @@ public class DeliverycrudController {
     }
 
     @RequestMapping(value = "/getDeliveryByOid", method = RequestMethod.GET)
-    public Result<Delivery> getDeliveryByOid(@RequestParam String oid){
+    public Result<List<Delivery>> getDeliveryByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
         return DeliverycrudService.queryDeliveryByOid(id);
     }
@@ -64,7 +64,7 @@ public class DeliverycrudController {
     }
 
     @RequestMapping(value = "/queryDeliveryByOid", method = RequestMethod.GET)
-    public Result<Delivery> queryDeliveryByOid(@RequestParam String oid){
+    public Result<List<Delivery>> queryDeliveryByOid(@RequestParam String oid){
         int id = Integer.parseInt(oid);
         return DeliverycrudService.queryDeliveryByOid(id);
     }

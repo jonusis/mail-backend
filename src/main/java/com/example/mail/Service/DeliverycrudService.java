@@ -57,8 +57,8 @@ public class DeliverycrudService {
         return delivery;
     }
 
-    public Result<Delivery> queryDeliveryByOid(int oid) {
-        Delivery delivery = null;
+    public Result<List<Delivery>> queryDeliveryByOid(int oid) {
+        List<Delivery> delivery = null;
         try {
             delivery = deliveryMapper.queryDeliveryByOid(oid);
         } catch (Exception e) {

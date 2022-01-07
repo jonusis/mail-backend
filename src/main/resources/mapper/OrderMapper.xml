@@ -3,6 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.OrderMapper">
+    <select id="searchOrder" resultType="Order">
+        select * from orders
+        <where>
+            <if test="state != 1000">
+                and state = #{state}
+            </if>
+            <if test="total_price != 0">
+                and total_price = #{total_price}
+            </if>
+        </where>
+    </select>
     <select id="queryOrderList" resultType="Order">
         select * from orders
     </select>

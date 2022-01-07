@@ -17,7 +17,7 @@ public interface DeliveryMapper {
 
     List<Delivery> queryDeliveryByUid(int uid);
 
-    Delivery queryDeliveryByOid(int oid);
+    List<Delivery> queryDeliveryByOid(int oid);
 
     void addDelivery(Delivery Delivery);
 
