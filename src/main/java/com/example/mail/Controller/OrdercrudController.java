@@ -26,7 +26,7 @@ public class OrdercrudController {
     @Autowired
     private com.example.mail.Service.GoodscrudService GoodscrudService;
 
-    @RequestMapping(value = "/searchUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/searchOrder", method = RequestMethod.GET)
     public PagehelpResult<List<Order>> searchOrder(@RequestParam(defaultValue = "1000") String state, @RequestParam(defaultValue = "0") String total_price, @RequestParam(defaultValue = "1",required = false) String pageNum, @RequestParam(defaultValue = "8",required = false) String pageSize){
         int pagenum = Integer.parseInt(pageNum);
         int pagesize = Integer.parseInt(pageSize);
