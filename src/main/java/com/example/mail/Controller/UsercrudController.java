@@ -82,7 +82,7 @@ public class UsercrudController {
         return UsercrudService.deleteUser(id);
     }
 
-    @RequestMapping(value = "/Login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result<String> UserLogin(@RequestParam String account,@RequestParam String password){
         return UsercrudService.Login(account,password);
     }

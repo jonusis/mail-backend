@@ -33,6 +33,11 @@ public class GoodscrudService {
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
 
+    public List<Goods> queryGoodsList() {
+        List<Goods> goods = goodsMapper.queryGoodsList();
+        return goods;
+    }
+
     public Goods queryGoodsByGid(int gid) {
         Goods goods = null;
         try {
