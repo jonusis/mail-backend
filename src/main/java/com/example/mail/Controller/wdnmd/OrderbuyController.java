@@ -8,6 +8,9 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/order")
 @Api(tags = "拼拼OrderbuyController")
@@ -35,5 +38,45 @@ public class OrderbuyController {
             return Result.error(new CodeMsg(0, e.toString()));
         }
         return Result.success("success addOrderbuy");
+    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.GET)
+    public Result<Map> getOrderbuyDetailByid(@RequestParam String id){
+        int idInt = Integer.parseInt(id);
+        List<String> userPicture = null;
+        List<Map> comments = null;
+        Map res = null;
+        try {
+            Orderbuy orderbuy = pinpinService.getOrderById(idInt);
+            res.put("datatime",orderbuy.getDatetime());
+            res.put("kind",orderbuy.getKind());
+            res.put("location",orderbuy.getLocation());
+            res.put("timeBuy",orderbuy.getTime());
+            res.put("numNeed",orderbuy.getNumNeed());
+            res.put("numExist",orderbuy.getNumExist());
+            res.put("picture",orderbuy.getPicture());
+            res.put("content",orderbuy.getContent());
+            res.put("heading",orderbuy.getHeading());
+            if(orderbuy.getFull() == 0){
+                res.put("full",false);
+            } else {
+                res.put("full",true);
+            }
+            res.put("userPicture",userPicture);
+            res.put("comments",comments);
+        } catch (Exception e) {
+            return Result.error(new CodeMsg(0, e.toString()));
+        }
+        return Result.success(res);
+    }
+
+    @RequestMapping(value = "/buyList", method = RequestMethod.GET)
+    public Result<String> getOrderbuyList(){
+        try {
+            List<Orderbuy> orderbuyList = pinpinService.getOrderbuyList();
+        } catch (Exception e) {
+            return Result.error(new CodeMsg(0, e.toString()));
+        }
+        return Result.success("success getOrderbuyList");
     }
 }

@@ -40,6 +40,14 @@ public class Orderbuy {
     public Orderbuy() {
     }
 
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
     public int getId() {
         return id;
     }
