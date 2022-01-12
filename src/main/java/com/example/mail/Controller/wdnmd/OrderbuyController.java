@@ -3,6 +3,7 @@ package com.example.mail.Controller.wdnmd;
 import com.example.mail.Pojo.Address;
 import com.example.mail.Pojo.OrderCar;
 import com.example.mail.Pojo.Orderbuy;
+import com.example.mail.Pojo.P2Orders;
 import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
@@ -54,7 +55,7 @@ public class OrderbuyController {
         Map res = new HashMap<>();
         try {
             Orderbuy orderbuy = pinpinService.getOrderBuyById(id);
-            res.put("datatime",orderbuy.getDatetime());
+            res.put("datatime",orderbuy.getDatetime().toString());
             res.put("kind",orderbuy.getKind());
             res.put("location",orderbuy.getLocation());
             res.put("timeBuy",orderbuy.getTime());
@@ -68,7 +69,11 @@ public class OrderbuyController {
             } else {
                 res.put("full",true);
             }
+
+            userPicture = pinpinService.getUserPicByOid(id);
             res.put("userPicture",userPicture);
+
+            comments = pinpinService.getCommentsDetailByOid(id);
             res.put("comments",comments);
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
@@ -77,7 +82,7 @@ public class OrderbuyController {
     }
 
     @RequestMapping(value = "/buy/list", method = RequestMethod.GET)
-    public PagehelpResult<List<Orderbuy>> getOrderbuyList(@RequestParam(defaultValue = "1") String kind,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
+    public PagehelpResult<List<Orderbuy>> getOrderBuyList(@RequestParam(defaultValue = "1") String kind,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
         PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
         List<Orderbuy> list = pinpinService.getOrderbuyList(Integer.parseInt(kind));
         PageInfo<Orderbuy> pageInfo = new PageInfo<>(list);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.CommentsMapper">
+    <select id="queryCommentsList" resultType="Comments">
+        select * from Comments
+    </select>
+    <select id="queryCommentsById" resultType="Comments">
+        select * from Comments where id = #{id}
+    </select>
+    <select id="addComments" parameterType="Comments">
+        insert into Comments (id,datetime,content,orderbuyID,ordercarID,userID) values (#{id},#{datetime},#{content},#{orderbuyID},#{ordercarID},#{userID})
+    </select>
+    <select id="updateComments" parameterType="Comments">
+        update Comments set datetime=#{datetime},content=#{content},orderbuyID=#{orderbuyID},ordercarID=#{ordercarID},userID=#{userID} where id = #{id}
+    </select>
+    <select id="deleteComments" parameterType="int">
+        delete from Comments where id = #{id}
+    </select>
+    <select id="selectIdMaxComments" resultType="int">
+        select MAX(id) from Comments
+    </select>
+    <select id="getUidByOid" resultType="int">
+        select userID from Comments where orderbuyID = #{id}
+    </select>
+</mapper>

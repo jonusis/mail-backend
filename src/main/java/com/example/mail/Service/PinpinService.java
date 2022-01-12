@@ -1,15 +1,12 @@
 package com.example.mail.Service;
 
-import com.example.mail.Mapper.OrderCarMapper;
-import com.example.mail.Mapper.OrderbuyMapper;
-import com.example.mail.Mapper.P2OrdersMapper;
-import com.example.mail.Mapper.UserMapper;
+import com.example.mail.Mapper.*;
 import com.example.mail.Pojo.*;
+import com.example.mail.ResultSet.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PinpinService {
@@ -21,6 +18,12 @@ public class PinpinService {
 
     @Autowired
     P2OrdersMapper p2OrdersMapper;
+
+    @Autowired
+    CommentsMapper commentsMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     public void addOrdercar(OrderCar ordercar) {
         int cid = ordercarMapper.selectIdMaxOrderCar();
@@ -106,5 +109,45 @@ public class PinpinService {
         return orderbuyMapper.queryOrderBuyListByUserID(userID);
     }
 
+    public List<String> getUserPicByOid(int id) {
+        List<Integer> uidList = p2OrdersMapper.getUidByOid(id);
+        List<String> userPic = new ArrayList<>();
+        for(int i = 0; i < uidList.size(); i++) {
+            userPic.add(userMapper.queryUserById(uidList.get(i)).getHeadPicture());
+        }
+        return userPic;
+    }
 
+    public void addComments(String content, int orderbuyID, int ordercarID, String userID) {
+        int id = commentsMapper.selectIdMaxComments();
+        Date datetime = new Date();
+        commentsMapper.addComments(id + 1,datetime,content,orderbuyID,ordercarID,userID);
+    }
+
+    public List<Comments> queryCommentsList() {
+        return commentsMapper.queryCommentsList();
+    }
+
+    public void updateComments(int id, Date datetime, String content, int orderbuyID, int ordercarID, String userID) {
+        commentsMapper.updateComments(id,datetime,content,orderbuyID,ordercarID,userID);
+    }
+
+    public void deleteComments(int id) {
+        commentsMapper.deleteComments(id);
+    }
+
+    public List<Map> getCommentsDetailByOid(int id) {
+        List<Map> commentsDetail = new ArrayList<>();
+        List<Integer> uidList = commentsMapper.getUidByOid(id);
+        List<Comments> commentsList = commentsMapper.queryCommentsList();
+        for (int i = 0; i < commentsList.size(); i++) {
+            Map<String,String> map = new HashMap<>();
+            map.put("username",userMapper.queryUserById(uidList.get(i)).getAccount());
+            map.put("headpicture",userMapper.queryUserById(uidList.get(i)).getHeadPicture());
+            map.put("content",commentsList.get(i).getContent());
+            map.put("datatime",commentsList.get(i).getDatetime().toString());
+            commentsDetail.add(map);
+        }
+        return commentsDetail;
+    }
 }

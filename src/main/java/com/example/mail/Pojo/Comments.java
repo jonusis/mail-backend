@@ -1,10 +1,10 @@
 package com.example.mail.Pojo;
 
-import java.time.DateTimeException;
+import java.util.Date;
 
 public class Comments {
     private int id;
-    private DateTimeException datetime;
+    private Date datetime;
     private String content;
     private int orderbuyID;
     private int ordercarID;
@@ -13,9 +13,9 @@ public class Comments {
     public Comments() {
     }
 
-    public Comments(int id, DateTimeException datetime, String content, int orderbuyID, int ordercarID, String userID) {
+    public Comments(int id, String content, int orderbuyID, int ordercarID, String userID) {
         this.id = id;
-        this.datetime = datetime;
+        this.datetime = new Date();
         this.content = content;
         this.orderbuyID = orderbuyID;
         this.ordercarID = ordercarID;
@@ -30,11 +30,11 @@ public class Comments {
         this.id = id;
     }
 
-    public DateTimeException getDatetime() {
+    public Date getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(DateTimeException datetime) {
+    public void setDatetime(Date datetime) {
         this.datetime = datetime;
     }
 

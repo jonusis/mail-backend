@@ -13,4 +13,7 @@
     <select id="selectIdMaxP2Order" resultType="int">
         select MAX(id) from p2orders
     </select>
+    <select id="getUidByOid" resultType="int">
+        select userID from p2orders where orderID = #{id}
+    </select>
 </mapper>
