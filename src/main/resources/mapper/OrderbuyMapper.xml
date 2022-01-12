@@ -3,10 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.OrderbuyMapper">
-    <insert id="addOrderbuy" parameterType="Orderbuy">
+    <insert id="addOrderBuy" parameterType="Orderbuy">
         insert into Orderbuy(id,datetime,time,tel,qq,wechat,numNeed,numExist,heading,content,postID,full,kind,location,picture) values (#{id},#{datetime},#{time},#{tel},#{qq},#{wechat},#{numNeed},1,#{heading},#{postID},0,#{kind},#{location},#{picture})
     </insert>
-    <select id="selectIdMaxOrderbuy" resultType="int">
+    <select id="selectIdMaxOrderBuy" resultType="int">
         select MAX(id) from Orderbuy
     </select>
+    <select id="selectOrderBuyById" resultType="Orderbuy" parameterType="int">
+        select * from Orderbuy where id = #{id}
+    </select>
+    <select id="queryOrderBuyListByUserID" resultType="Orderbuy">
+        select * from Orderbuy where postID = #{postID}
+    </select>
+    <select id="queryOrderBuyList" resultType="Orderbuy">
+        select * from Orderbuy
+    </select>
+    <select id="getOrderBuyList" resultType="Orderbuy" parameterType="int">
+        select * from Orderbuy where type = #{type}
+    </select>
+    <delete id="deleteOrderBuy" parameterType="int">
+        delete from Orderbuy where id = #{id}
+    </delete>
+    <update id="updateOrderBuy" parameterType="Orderbuy">
+        update Orderbuy set datetime=#{datetime},time=#{time},tel=#{tel},qq=#{qq},numNeed=#{numNeed},numExist=#{numExist},heading=#{heading},content=#{content},postID=#{postID},full=#{full},kind=#{kind},location=#{location},picture=#{picture} where id = #{id}
+    </update>
 </mapper>

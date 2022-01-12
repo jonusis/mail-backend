@@ -12,6 +12,9 @@
     <select id="selectOrderCarById" resultType="OrderCar" parameterType="int">
         select * from Ordercar where id = #{id}
     </select>
+    <select id="queryOrderCarListByUserID" resultType="OrderCar" parameterType="int">
+        select * from Ordercar where postID = #{postID}
+    </select>
     <select id="queryOrderCarList" resultType="OrderCar">
         select * from Ordercar
     </select>

@@ -19,6 +19,23 @@ public class Orderbuy {
     private String location;
     private String picture;
 
+    public Orderbuy(Orderbuy OrderBuy) {
+        this.id = OrderBuy.id;
+        this.datetime = OrderBuy.datetime;
+        this.time = OrderBuy.time;
+        this.tel = OrderBuy.tel;
+        this.qq = OrderBuy.qq;
+        this.wechat = OrderBuy.wechat;
+        this.numNeed = OrderBuy.numNeed;
+        this.numExist = OrderBuy.numExist;
+        this.heading = OrderBuy.heading;
+        this.content = OrderBuy.content;
+        this.postID = OrderBuy.postID;
+        this.full = OrderBuy.full;
+        this.kind =OrderBuy.kind;
+        this.location = OrderBuy.location;
+        this.picture = OrderBuy.picture;
+    }
     public Orderbuy(int id, String time, String tel, String qq, String wechat, int numNeed, int numExist, String heading, String content, String postID, int full, int kind, String location, String picture) {
         this.id = id;
         this.datetime = new Date();

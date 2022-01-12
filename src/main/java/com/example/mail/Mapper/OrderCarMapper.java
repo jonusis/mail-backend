@@ -2,6 +2,7 @@ package com.example.mail.Mapper;
 
 import com.example.mail.Pojo.Order;
 import com.example.mail.Pojo.OrderCar;
+import com.example.mail.Pojo.Orderbuy;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +22,6 @@ public interface OrderCarMapper {
     void updateOrderCar(OrderCar orderCar);
 
     List<OrderCar> selectOrderCarById(int id);
+
+    List<OrderCar> queryOrderCarListByUserID(int userID);
 }

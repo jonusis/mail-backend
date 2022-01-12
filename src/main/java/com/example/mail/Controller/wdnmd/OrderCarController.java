@@ -58,4 +58,17 @@ public class OrderCarController {
             return Result.error(new CodeMsg(0, e.toString()));
         }
     }
+
+
+    @RequestMapping(value = "/car/list/queryOrderCarListById", method = RequestMethod.GET)
+    public PagehelpResult<List<OrderCar>> queryOrderCarListById(@RequestParam String userID,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
+        PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
+        List<OrderCar> list = pinpinService.queryOrderCarListByUserID(Integer.parseInt(userID));
+        PageInfo<OrderCar> pageInfo = new PageInfo<>(list);
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
+    }
+
+
 }

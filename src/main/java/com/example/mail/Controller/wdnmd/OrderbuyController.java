@@ -1,9 +1,13 @@
 package com.example.mail.Controller.wdnmd;
 
 import com.example.mail.Pojo.Address;
+import com.example.mail.Pojo.OrderCar;
 import com.example.mail.Pojo.Orderbuy;
 import com.example.mail.ResultSet.CodeMsg;
+import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +51,7 @@ public class OrderbuyController {
         List<Map> comments = null;
         Map res = null;
         try {
-            Orderbuy orderbuy = pinpinService.getOrderById(idInt);
+            Orderbuy orderbuy = pinpinService.getOrderBuyById(idInt);
             res.put("datatime",orderbuy.getDatetime());
             res.put("kind",orderbuy.getKind());
             res.put("location",orderbuy.getLocation());
@@ -70,13 +74,37 @@ public class OrderbuyController {
         return Result.success(res);
     }
 
-    @RequestMapping(value = "/buyList", method = RequestMethod.GET)
-    public Result<String> getOrderbuyList(){
-        try {
-            List<Orderbuy> orderbuyList = pinpinService.getOrderbuyList();
-        } catch (Exception e) {
+    @RequestMapping(value = "/buy/list", method = RequestMethod.GET)
+    public PagehelpResult<List<Orderbuy>> getOrderbuyList(@RequestParam(defaultValue = "1") String kind,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
+        PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
+        List<Orderbuy> list = pinpinService.getOrderbuyList(Integer.parseInt(kind));
+        PageInfo<Orderbuy> pageInfo = new PageInfo<>(list);
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
+    }
+
+    @RequestMapping(value = "/buy", method = RequestMethod.POST)
+    public Result<String> addUserToBuyOrder(@RequestParam String orderbuyID, @RequestParam String userID){
+        int uid = Integer.parseInt(userID);
+        int orderID = Integer.parseInt(orderbuyID);
+        try{
+            String res = pinpinService.userJoinOrderBuy(uid,orderID);
+            return Result.success(res);
+        }catch (Exception e){
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success("success getOrderbuyList");
     }
+
+    @RequestMapping(value = "/car/list/queryOrderBuyListById", method = RequestMethod.GET)
+    public PagehelpResult<List<Orderbuy>> queryOrderBuyListById(@RequestParam String userID, @RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
+        PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
+        List<Orderbuy> list = pinpinService.queryOrderbuyListByUserID(Integer.parseInt(userID));
+        PageInfo<Orderbuy> pageInfo = new PageInfo<>(list);
+        int pageNumber = pageInfo.getPageNum();
+        int PageSize = pageInfo.getPages();
+        return PagehelpResult.success(list,pageNumber,PageSize);
+    }
+
 }
+
