@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.OrderbuyMapper">
+    <insert id="addOrderbuy" parameterType="Orderbuy">
+        insert into Orderbuy(id,datetime,time,tel,qq,wechat,numNeed,numExist,heading,content,postID,full,kind,location,picture) values (#{id},#{datetime},#{time},#{tel},#{qq},#{wechat},#{numNeed},1,#{heading},#{postID},0,#{kind},#{location},#{picture})
+    </insert>
+    <select id="selectIdMaxOrderbuy" resultType="int">
+        select MAX(id) from Orderbuy
+    </select>
+</mapper>

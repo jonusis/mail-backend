@@ -44,24 +44,24 @@ public class UsercrudService {
         return user;
     }
 
-    public Result<String> addUser(String name, String account, String password, int age, int sex){
+    public Result<String> addUser(String name, String account, String password, int age, int sex, String stNum, String headPicture, String tel, String qq, String wechat){
         try{
             int id = userMapper.selectIdMaxUser() + 1;
-            userMapper.addUser(new User(id,name,account,password,age,sex));
+            userMapper.addUser(new User(id,name,account,password,age,sex,stNum,headPicture,tel,qq,wechat));
         }catch (Exception e){
             return Result.error(new CodeMsg(0,e.toString()));
         }
         return Result.success("success Register");
     }
 
-    public Result<String> updateUser(int uid, String name, String account, int age, int sex) {
+    public Result<User> updateUser(int uid, String name, String account, int age, int sex, String stNum, String headPicture, String tel, String qq, String wechat) {
         try {
             User user1 = userMapper.queryUserById(uid);
-            userMapper.updateUser(new User(uid,name,account,user1.getPassword(),age,sex));
+            userMapper.updateUser(new User(uid,name,account,user1.getPassword(),age,sex,stNum,headPicture,tel,qq,wechat));
         } catch (Exception e) {
             return Result.error(new CodeMsg(0, e.toString()));
         }
-        return Result.success("success updateUser");
+        return Result.success(userMapper.queryUserById(uid));
     }
 
     public Result<String> deleteUser(int uid) {
@@ -73,12 +73,12 @@ public class UsercrudService {
         return Result.success("success deleteUser");
     }
 
-    public Result<String> Login(String account, String password){
+    public Result<User> Login(String account, String password){
         List<User> res = userMapper.selectUserLogin(account,password);
         if(res.size() == 0){
             return Result.error(new CodeMsg(400,"登陆失败"));
         }else{
-            return Result.success("登陆成功");
+            return Result.success(res.get(0));
         }
     }
 

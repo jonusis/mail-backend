@@ -30,10 +30,10 @@
         select * from users where uid = #{uid}
     </select>
     <select id="addUser" parameterType="User">
-        insert into users (uid,name,account,password,age,sex) values (#{uid},#{name},#{account},#{password},#{age},#{sex})
+        insert into users (uid,name,account,password,age,sex,stNum,headPicture,tel,qq,wechat) values (#{uid},#{name},#{account},#{password},#{age},#{sex},#{stNum},#{headPicture},#{tel},#{qq},#{wechat})
     </select>
     <select id="updateUser" parameterType="User">
-        update users set name=#{name},account=#{account},password=#{password},age=#{age},sex=#{sex} where uid = #{uid}
+        update users set name=#{name},account=#{account},password=#{password},age=#{age},sex=#{sex},stNum=#{stNum},headPicture=#{headPicture},tel=#{tel},qq=#{qq},wechat=#{wechat} where uid = #{uid}
     </select>
     <select id="deleteUser" parameterType="int">
         delete from users where uid = #{uid}

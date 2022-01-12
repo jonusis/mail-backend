@@ -22,6 +22,7 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
                 "classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations(
                 "classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/temp-rainy/**").addResourceLocations("file:D:/temp-rainy/");
         super.addResourceHandlers(registry);
     }
 

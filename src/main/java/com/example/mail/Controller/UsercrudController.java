@@ -1,5 +1,6 @@
 package com.example.mail.Controller;
 import com.example.mail.Pojo.Goods;
+import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
 import com.example.mail.Pojo.User;
@@ -10,6 +11,8 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -63,17 +66,27 @@ public class UsercrudController {
         String password = user.getPassword();
         int age = user.getAge();
         int sex = user.getSex();
-        return UsercrudService.addUser(name,account,password,age,sex);
+        String stNum = user.getStNum();
+        String headPicture = user.getHeadPicture();
+        String tel = user.getTel();
+        String qq = user.getQq();
+        String wechat = user.getWechat();
+        return UsercrudService.addUser(name,account,password,age,sex,stNum,headPicture, tel,qq,wechat);
     }
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
-    public Result<String> updateUser(@RequestBody User user){
+    public Result<User> updateUser(@RequestBody User user){
         int uid = user.getUid();
         String name = user.getName();
         String account = user.getAccount();
         int age = user.getAge();
         int sex = user.getSex();
-        return UsercrudService.updateUser(uid,name,account,age,sex);
+        String stNum = user.getStNum();
+        String headPicture = user.getHeadPicture();
+        String tel = user.getTel();
+        String qq = user.getQq();
+        String wechat = user.getWechat();
+        return UsercrudService.updateUser(uid,name,account,age,sex,stNum,headPicture,tel,qq,wechat);
     }
 
     @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
@@ -83,7 +96,7 @@ public class UsercrudController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Result<String> UserLogin(@RequestParam String account,@RequestParam String password){
+    public Result<User> UserLogin(@RequestParam String account,@RequestParam String password){
         return UsercrudService.Login(account,password);
     }
 }
