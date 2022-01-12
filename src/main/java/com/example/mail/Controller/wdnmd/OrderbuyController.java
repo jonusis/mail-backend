@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +48,11 @@ public class OrderbuyController {
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
     public Result<Map> getOrderbuyDetailByid(@RequestParam String id){
         int idInt = Integer.parseInt(id);
-        List<String> userPicture = null;
-        List<Map> comments = null;
+        List<String> userPicture = new ArrayList<>();
+        List<Map> comments = new ArrayList<>();
         Map res = null;
         try {
-            Orderbuy orderbuy = pinpinService.getOrderBuyById(idInt);
+            Orderbuy orderbuy = pinpinService.getOrderBuyById(Integer.parseInt(id));
             res.put("datatime",orderbuy.getDatetime());
             res.put("kind",orderbuy.getKind());
             res.put("location",orderbuy.getLocation());

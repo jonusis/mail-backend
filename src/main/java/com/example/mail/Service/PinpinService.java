@@ -64,7 +64,7 @@ public class PinpinService {
         int id = orderbuyMapper.selectIdMaxOrderBuy();
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         Date datetime = new Date();
-        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,Integer.parseInt(postID),id));
+        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,Integer.parseInt(postID),id));
         orderbuyMapper.addOrderBuy(id + 1,datetime,time,tel,qq,wechat,numNeed,heading,content,postID,kind,location,picture);
         return;
     }
@@ -77,8 +77,8 @@ public class PinpinService {
         return orderbuyMapper.getOrderBuyList(kind);
     }
 
-    public Orderbuy getOrderBuyById(int idInt) {
-        return orderbuyMapper.selectOrderBuyById(idInt).get(0);
+    public Orderbuy getOrderBuyById(int id) {
+        return orderbuyMapper.selectOrderBuyById(id).get(0);
     }
 
     public String userJoinOrderBuy(int uid, int orderID) {
