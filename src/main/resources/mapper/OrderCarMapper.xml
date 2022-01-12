@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mail.Mapper.OrderCarMapper">
+    <insert id="addOrderCar" parameterType="OrderCar">
+        insert into ordercar(id,datetime,time,tel,qq,wechat,numNeed,numExist,heading,content,postID,full,placeA,placeB) values (#{id},#{datetime},#{time},#{tel},#{qq},#{wechat},#{numNeed},#{numExist},#{heading},#{content},#{postID},#{full},#{placeA},#{placeB})
+    </insert>
+    <select id="selectIdMaxOrderCar" resultType="int">
+        select MAX(id) from Ordercar
+    </select>
+    <select id="selectOrderCarById" resultType="OrderCar" parameterType="int">
+        select * from Ordercar where id = #{id}
+    </select>
+    <select id="queryOrderCarList" resultType="OrderCar">
+        select * from Ordercar
+    </select>
+    <delete id="deleteOrderCar" parameterType="int">
+        delete from Ordercar where id = #{id}
+    </delete>
+    <update id="updateOrderCar" parameterType="OrderCar">
+        update Ordercar set datetime=#{datetime},time=#{time},tel=#{tel},qq=#{qq},numNeed=#{numNeed},numExist=#{numExist},heading=#{heading},content=#{content},postID=#{postID},full=#{full},placeA=#{placeA},placeB=#{placeB} where id = #{id}
+    </update>
+</mapper>

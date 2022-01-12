@@ -2,7 +2,7 @@ package com.example.mail.Pojo;
 
 import java.util.Date;
 
-public class Ordercar {
+public class OrderCar {
     private int id;
     private Date datetime;
     private String time;
@@ -18,10 +18,10 @@ public class Ordercar {
     private String placeA;
     private String placeB;
 
-    public Ordercar() {
+    public OrderCar() {
     }
 
-    public Ordercar(int id, String time, String tel, String qq, String wechat, int numNeed, int numExist, String heading, String content, String postID, int full, String placeA, String placeB) {
+    public OrderCar(int id, String time, String tel, String qq, String wechat, int numNeed, int numExist, String heading, String content, String postID, int full, String placeA, String placeB) {
         this.id = id;
         this.datetime = new Date();
         this.time = time;
@@ -36,6 +36,23 @@ public class Ordercar {
         this.full = full;
         this.placeA = placeA;
         this.placeB = placeB;
+    }
+
+    public OrderCar(OrderCar orderCar) {
+        this.id = orderCar.id;
+        this.datetime = orderCar.datetime;
+        this.time = orderCar.time;
+        this.tel = orderCar.tel;
+        this.qq = orderCar.qq;
+        this.wechat = orderCar.wechat;
+        this.numNeed = orderCar.numNeed;
+        this.numExist = orderCar.numExist;
+        this.heading = orderCar.heading;
+        this.content = orderCar.content;
+        this.postID = orderCar.postID;
+        this.full = orderCar.full;
+        this.placeA = orderCar.placeA;
+        this.placeB = orderCar.placeB;
     }
 
     public int getId() {

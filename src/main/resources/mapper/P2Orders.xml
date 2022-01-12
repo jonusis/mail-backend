@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mail.Mapper.P2OrdersMapper">
+    <select id="searchP2OrdersList" resultType="P2Orders">
+        select * from p2orders where orderID = #{orderID} and kind = #{kind}
+    </select>
+    <insert id="addP2Order" parameterType="P2Orders">
+        insert into p2orders (id,kind,userID,orderID) values (#{id},#{kind},#{userID},#{orderID})
+    </insert>
+    <select id="selectIdMaxP2Order" resultType="int">
+        select MAX(id) from p2orders
+    </select>
+</mapper>

@@ -4,18 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mail.Mapper.OrderbuyMapper">
     <insert id="addOrderbuy" parameterType="Orderbuy">
-        insert into Orderbuy(id,datetime,time,tel,qq,wechat,numNeed,numExist,heading,
-                content,postID,full,kind,location,picture)
-                values (#{id},#{datetime},#{time},#{tel},#{qq},#{wechat},#{numNeed},
-                1,#{heading},#{content},#{postID},0,#{kind},#{location},#{picture})
+        insert into Orderbuy(id,datetime,time,tel,qq,wechat,numNeed,numExist,heading,content,postID,full,kind,location,picture) values (#{id},#{datetime},#{time},#{tel},#{qq},#{wechat},#{numNeed},1,#{heading},#{postID},0,#{kind},#{location},#{picture})
     </insert>
     <select id="selectIdMaxOrderbuy" resultType="int">
         select MAX(id) from Orderbuy
-    </select>
-    <select id="getOrderById" resultType="Orderbuy">
-        select * from Orderbuy where id = #{id}
-    </select>
-    <select id="getOrderbuyList" resultType="Orderbuy">
-        select * from Orderbuy
     </select>
 </mapper>

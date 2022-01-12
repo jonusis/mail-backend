@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import java.util.UUID;
 /**
  * 文件上传
  */
-@RestController
+@Controller
 public class FileController {
 
     @GetMapping(value = "/file")
@@ -30,7 +29,7 @@ public class FileController {
         }
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = "D://temp-rainy//"; // 上传后的路径
+        String filePath = "Desktop/"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
@@ -43,6 +42,6 @@ public class FileController {
         }
         String filename = "/temp-rainy/" + fileName;
         model.addAttribute("filename", filename);
-        return filename;
+        return "file";
     }
 }
