@@ -90,7 +90,7 @@ public class PinpinService {
             List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderID,0);
             for(P2Orders p2Orders : list){
                 if(p2Orders.getUserID() == uid){
-                    return "You have joined this car order";
+                    return "You have joined this buy order";
                 }
             }
             chooseOrderbuy.setNumExist(chooseOrderbuy.getNumExist() + 1);
@@ -98,7 +98,7 @@ public class PinpinService {
                 chooseOrderbuy.setFull(1);
             }
             orderbuyMapper.updateOrderBuy(new Orderbuy(chooseOrderbuy));
-            p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,uid,orderID));
+            p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,uid,orderID));
             return "user add success";
         }
     }

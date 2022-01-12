@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,13 +47,13 @@ public class OrderbuyController {
     }
 
     @RequestMapping(value = "/buy", method = RequestMethod.GET)
-    public Result<Map> getOrderbuyDetailByid(@RequestParam String id){
-        int idInt = Integer.parseInt(id);
+    public Result<Map> getOrderbuyDetailByid(@RequestParam String orderID){
+        int id = Integer.parseInt(orderID);
         List<String> userPicture = new ArrayList<>();
         List<Map> comments = new ArrayList<>();
-        Map res = null;
+        Map res = new HashMap<>();
         try {
-            Orderbuy orderbuy = pinpinService.getOrderBuyById(Integer.parseInt(id));
+            Orderbuy orderbuy = pinpinService.getOrderBuyById(id);
             res.put("datatime",orderbuy.getDatetime());
             res.put("kind",orderbuy.getKind());
             res.put("location",orderbuy.getLocation());
@@ -97,7 +98,7 @@ public class OrderbuyController {
         }
     }
 
-    @RequestMapping(value = "/car/list/queryOrderBuyListById", method = RequestMethod.GET)
+    @RequestMapping(value = "/buy/list/queryOrderBuyListById", method = RequestMethod.GET)
     public PagehelpResult<List<Orderbuy>> queryOrderBuyListById(@RequestParam String userID, @RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
         PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
         List<Orderbuy> list = pinpinService.queryOrderbuyListByUserID(Integer.parseInt(userID));
@@ -106,6 +107,5 @@ public class OrderbuyController {
         int PageSize = pageInfo.getPages();
         return PagehelpResult.success(list,pageNumber,PageSize);
     }
-
 }
 

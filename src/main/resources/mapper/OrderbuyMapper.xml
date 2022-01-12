@@ -19,7 +19,7 @@
         select * from Orderbuy
     </select>
     <select id="getOrderBuyList" resultType="Orderbuy" parameterType="int">
-        select * from Orderbuy where type = #{type}
+        select * from Orderbuy where kind = #{kind}
     </select>
     <delete id="deleteOrderBuy" parameterType="int">
         delete from Orderbuy where id = #{id}
