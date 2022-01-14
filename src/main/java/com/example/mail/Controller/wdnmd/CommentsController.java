@@ -21,9 +21,9 @@ public class CommentsController {
     private com.example.mail.Service.PinpinService pinpinService;
 
     @RequestMapping(value = "/addComments", method = RequestMethod.POST)
-    public Result<String> addComments(@RequestBody Comments comments){
+    public Result<String> addComments(@RequestParam String orderID,@RequestBody Comments comments){
         String content = comments.getContent();
-        int orderbuyID = comments.getOrderbuyID();
+        int orderbuyID = Integer.parseInt(orderID);
         int ordercarID = comments.getOrdercarID();
         String userID = comments.getUserID();
         pinpinService.addComments(content,

@@ -53,7 +53,6 @@ public class OrderbuyController {
         List<String> userPicture = new ArrayList<>();
         List<Map> comments = new ArrayList<>();
         Map res = new HashMap<>();
-        try {
             Orderbuy orderbuy = pinpinService.getOrderBuyById(id);
             res.put("datatime",orderbuy.getDatetime().toString());
             res.put("kind",orderbuy.getKind());
@@ -64,6 +63,9 @@ public class OrderbuyController {
             res.put("picture",orderbuy.getPicture());
             res.put("content",orderbuy.getContent());
             res.put("heading",orderbuy.getHeading());
+            res.put("tel",orderbuy.getTel());
+            res.put("qq",orderbuy.getQq());
+            res.put("wechat",orderbuy.getWechat());
             if(orderbuy.getFull() == 0){
                 res.put("full",false);
             } else {
@@ -75,9 +77,7 @@ public class OrderbuyController {
 
             comments = pinpinService.getCommentsDetailByOid(id);
             res.put("comments",comments);
-        } catch (Exception e) {
-            return Result.error(new CodeMsg(0, e.toString()));
-        }
+
         return Result.success(res);
     }
 

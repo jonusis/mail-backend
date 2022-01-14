@@ -17,6 +17,8 @@ public interface CommentsMapper {
 
     List<Comments> queryCommentsList();
 
+    List<Comments> queryCommentsListByorderbuyID(int id);
+
     void updateComments(int id, Date datetime, String content, int orderbuyID, int ordercarID, String userID);
 
     void deleteComments(int id);

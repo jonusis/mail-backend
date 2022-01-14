@@ -9,6 +9,9 @@
     <select id="queryCommentsById" resultType="Comments">
         select * from Comments where id = #{id}
     </select>
+    <select id="queryCommentsListByorderbuyID" resultType="Comments">
+        select * from Comments where orderbuyID = #{id}
+    </select>
     <select id="addComments" parameterType="Comments">
         insert into Comments (id,datetime,content,orderbuyID,ordercarID,userID) values (#{id},#{datetime},#{content},#{orderbuyID},#{ordercarID},#{userID})
     </select>

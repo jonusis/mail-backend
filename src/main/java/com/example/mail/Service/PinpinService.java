@@ -115,7 +115,7 @@ public class PinpinService {
         for(int i = 0; i < uidList.size(); i++) {
             userPic.add(userMapper.queryUserById(uidList.get(i)).getHeadPicture());
         }
-        return userPic;
+        return new ArrayList<>(userPic);
     }
 
     public void addComments(String content, int orderbuyID, int ordercarID, String userID) {
@@ -138,16 +138,33 @@ public class PinpinService {
 
     public List<Map> getCommentsDetailByOid(int id) {
         List<Map> commentsDetail = new ArrayList<>();
-        List<Integer> uidList = commentsMapper.getUidByOid(id);
-        List<Comments> commentsList = commentsMapper.queryCommentsList();
+        List<Comments> commentsList = commentsMapper.queryCommentsListByorderbuyID(id);
+
         for (int i = 0; i < commentsList.size(); i++) {
             Map<String,String> map = new HashMap<>();
-            map.put("username",userMapper.queryUserById(uidList.get(i)).getAccount());
-            map.put("headpicture",userMapper.queryUserById(uidList.get(i)).getHeadPicture());
+            int tempuid = Integer.parseInt(commentsList.get(i).getUserID());
+            map.put("username",userMapper.queryUserById(tempuid).getName());
+            map.put("headpicture",userMapper.queryUserById(tempuid).getHeadPicture());
             map.put("content",commentsList.get(i).getContent());
             map.put("datatime",commentsList.get(i).getDatetime().toString());
             commentsDetail.add(map);
         }
         return commentsDetail;
+    }
+
+    public void deleteOrderbuy(int id) {
+        orderbuyMapper.deleteOrderBuy(id);
+    }
+
+    public void updateOrderbuy(Orderbuy orderbuy) {
+        orderbuyMapper.updateOrderBuy(orderbuy);
+    }
+
+    public void deleteOrdercar(int id) {
+        ordercarMapper.deleteOrderCar(id);
+    }
+
+    public void updateOrderCar(OrderCar orderCar) {
+        ordercarMapper.updateOrderCar(orderCar);
     }
 }

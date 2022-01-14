@@ -83,6 +83,9 @@ public class UsercrudController {
         int sex = user.getSex();
         String stNum = user.getStNum();
         String headPicture = user.getHeadPicture();
+        if(headPicture == null){
+            headPicture = UsercrudService.queryUserById(uid).getHeadPicture();
+        }
         String tel = user.getTel();
         String qq = user.getQq();
         String wechat = user.getWechat();
