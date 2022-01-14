@@ -28,7 +28,7 @@ public class PinpinService {
     public void addOrdercar(OrderCar ordercar) {
         int cid = ordercarMapper.selectIdMaxOrderCar();
         int pid = p2OrdersMapper.selectIdMaxP2Order();
-        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,Integer.parseInt(ordercar.getPostID()),ordercar.getId()));
+        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,Integer.parseInt(ordercar.getPostID()),cid + 1));
         ordercarMapper.addOrderCar(new OrderCar(cid+1,ordercar.getTime(),ordercar.getTel(),ordercar.getQq(),ordercar.getWechat(),ordercar.getNumNeed(),1,ordercar.getHeading(),ordercar.getContent(),ordercar.getPostID(),0,ordercar.getPlaceA(),ordercar.getPlaceB()));
         return;
     }
@@ -67,7 +67,7 @@ public class PinpinService {
         int id = orderbuyMapper.selectIdMaxOrderBuy();
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         Date datetime = new Date();
-        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,Integer.parseInt(postID),id));
+        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,Integer.parseInt(postID),id + 1));
         orderbuyMapper.addOrderBuy(id + 1,datetime,time,tel,qq,wechat,numNeed,heading,content,postID,kind,location,picture);
         return;
     }
