@@ -48,8 +48,7 @@ public class OrdercarcrudController {
         int uid = Integer.parseInt(userID);
         int orderID = Integer.parseInt(ordercarID);
         try{
-            String res = pinpinService.userJoinOrderCar(uid,orderID);
-            return Result.success(res);
+            return pinpinService.userJoinOrderCar(uid,orderID);
         }catch (Exception e){
             return Result.error(new CodeMsg(0, e.toString()));
         }

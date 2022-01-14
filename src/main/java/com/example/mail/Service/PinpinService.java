@@ -2,6 +2,7 @@ package com.example.mail.Service;
 
 import com.example.mail.Mapper.*;
 import com.example.mail.Pojo.*;
+import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,16 @@ public class PinpinService {
         return ordercarMapper.queryOrderCarList();
     }
 
-    public String userJoinOrderCar(int uid,int orderId){
+    public Result<String> userJoinOrderCar(int uid,int orderId){
         OrderCar chooseOrderCar = ordercarMapper.selectOrderCarById(orderId).get(0);
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         if(chooseOrderCar.getFull() == 1){
-            return "this order has fulled";
+            return Result.error(new CodeMsg(400,"this order has fulled"));
         }else{
             List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderId,1);
             for(P2Orders p2Orders : list){
                 if(p2Orders.getUserID() == uid){
-                    return "You have joined this car order";
+                    return Result.error(new CodeMsg(400,"you have joined this order"));
                 }
             }
             chooseOrderCar.setNumExist(chooseOrderCar.getNumExist() + 1);
@@ -55,7 +56,7 @@ public class PinpinService {
             }
             ordercarMapper.updateOrderCar(new OrderCar(chooseOrderCar));
             p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,uid,orderId));
-            return "user add success";
+            return Result.success("user add success");
         }
     }
 
@@ -84,16 +85,16 @@ public class PinpinService {
         return orderbuyMapper.selectOrderBuyById(id).get(0);
     }
 
-    public String userJoinOrderBuy(int uid, int orderID) {
+    public Result<String> userJoinOrderBuy(int uid, int orderID) {
         Orderbuy chooseOrderbuy = orderbuyMapper.selectOrderBuyById(orderID).get(0);
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         if(chooseOrderbuy.getFull() == 1){
-            return "this order has fulled";
+            return Result.error(new CodeMsg(400,"this order has fulled"));
         }else{
             List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderID,0);
             for(P2Orders p2Orders : list){
                 if(p2Orders.getUserID() == uid){
-                    return "You have joined this buy order";
+                    return Result.error(new CodeMsg(400,"you have joined this order"));
                 }
             }
             chooseOrderbuy.setNumExist(chooseOrderbuy.getNumExist() + 1);
@@ -102,7 +103,7 @@ public class PinpinService {
             }
             orderbuyMapper.updateOrderBuy(new Orderbuy(chooseOrderbuy));
             p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,uid,orderID));
-            return "user add success";
+            return Result.success("user add success");
         }
     }
     public List<Orderbuy> queryOrderbuyListByUserID(int userID) {
@@ -110,7 +111,7 @@ public class PinpinService {
     }
 
     public List<String> getUserPicByOid(int id) {
-        List<Integer> uidList = p2OrdersMapper.getUidByOid(id);
+        List<Integer> uidList = p2OrdersMapper.getBuyUidByOid(id);
         List<String> userPic = new ArrayList<>();
         for(int i = 0; i < uidList.size(); i++) {
             userPic.add(userMapper.queryUserById(uidList.get(i)).getHeadPicture());
@@ -118,6 +119,14 @@ public class PinpinService {
         return new ArrayList<>(userPic);
     }
 
+    public List<User> getUserInfoByOid(int id) {
+        List<Integer> uidList = p2OrdersMapper.getBuyUidByOid(id);
+        List<User> userInfo = new ArrayList<>();
+        for(int i = 0; i < uidList.size(); i++) {
+            userInfo.add(userMapper.queryUserById(uidList.get(i)));
+        }
+        return new ArrayList<User>(userInfo);
+    }
     public void addComments(String content, int orderbuyID, int ordercarID, String userID) {
         int id = commentsMapper.selectIdMaxComments();
         Date datetime = new Date();
