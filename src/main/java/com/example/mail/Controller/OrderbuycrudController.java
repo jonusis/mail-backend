@@ -2,6 +2,7 @@ package com.example.mail.Controller;
 
 import com.example.mail.Pojo.Order;
 import com.example.mail.Pojo.Orderbuy;
+import com.example.mail.Pojo.User;
 import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
@@ -11,8 +12,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @Api(tags = "orderbuy增删查改")
@@ -37,11 +37,24 @@ public class OrderbuycrudController {
         int uid = Integer.parseInt(userID);
         int orderID = Integer.parseInt(orderbuyID);
         try{
-            String res = pinpinService.userJoinOrderBuy(uid,orderID);
-            return Result.success(res);
+            return pinpinService.userJoinOrderBuy(uid,orderID);
         }catch (Exception e){
             return Result.error(new CodeMsg(0, e.toString()));
         }
+    }
+
+    @RequestMapping(value = "/getOrderbuyDetailByid", method = RequestMethod.GET)
+    public Result<Map> getOrderbuyDetailByid(@RequestParam String orderID){
+        int id = Integer.parseInt(orderID);
+        List<User> userInfo = pinpinService.getUserInfoByOid(id);
+        List<Map> comments = new ArrayList<>();
+        Map res = new HashMap<>();
+        Orderbuy orderbuy = pinpinService.getOrderBuyById(id);
+        comments = pinpinService.getCommentsDetailByOid(id);
+        res.put("comments",comments);
+        res.put("userInfo",userInfo);
+        res.put("orderbuy",orderbuy);
+        return Result.success(res);
     }
 
     @RequestMapping(value = "/queryOrderBuyListById", method = RequestMethod.GET)

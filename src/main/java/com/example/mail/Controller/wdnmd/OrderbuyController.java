@@ -96,8 +96,7 @@ public class OrderbuyController {
         int uid = Integer.parseInt(userID);
         int orderID = Integer.parseInt(orderbuyID);
         try{
-            String res = pinpinService.userJoinOrderBuy(uid,orderID);
-            return Result.success(res);
+            return pinpinService.userJoinOrderBuy(uid,orderID);
         }catch (Exception e){
             return Result.error(new CodeMsg(0, e.toString()));
         }
