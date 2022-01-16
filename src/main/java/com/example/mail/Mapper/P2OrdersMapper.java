@@ -20,4 +20,6 @@ public interface P2OrdersMapper {
     List<Integer> getUidByOid(int id);
 
     List<Integer> getBuyUidByOid(int id);
+
+    List<Integer> getBuyOidByUid(int id);
 }

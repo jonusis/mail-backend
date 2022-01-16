@@ -21,9 +21,9 @@ public class OrderCar {
     public OrderCar() {
     }
 
-    public OrderCar(int id, String time, String tel, String qq, String wechat, int numNeed, int numExist, String heading, String content, String postID, int full, String placeA, String placeB) {
+    public OrderCar(int id,Date datetime, String time, String tel, String qq, String wechat, int numNeed, int numExist, String heading, String content, String postID, int full, String placeA, String placeB) {
         this.id = id;
-        this.datetime = new Date();
+        this.datetime = datetime;
         this.time = time;
         this.tel = tel;
         this.qq = qq;

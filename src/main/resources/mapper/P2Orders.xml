@@ -19,4 +19,7 @@
     <select id="getBuyUidByOid" resultType="int">
         select userID from p2orders where orderID = #{id} and kind = 0
     </select>
+    <select id="getBuyOidByUid" resultType="int">
+        select orderID from p2orders where userID = #{id} and kind = 0
+    </select>
 </mapper>
