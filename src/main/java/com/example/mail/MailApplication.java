@@ -4,11 +4,14 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
+import java.util.HashMap;
 import java.util.Properties;
 
 
 @SpringBootApplication
+@EnableAsync
 public class MailApplication {
 	@Bean
 	public PageHelper pageHelper() {
@@ -25,6 +28,7 @@ public class MailApplication {
 	 * 给mybatis注入分页插件
 	 * 防止mybatis分页插件不生效
 	 **/
+
 	public static void main(String[] args) {
 		SpringApplication.run(MailApplication.class, args);
 	}

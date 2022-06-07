@@ -21,6 +21,8 @@ public interface OrderbuyMapper {
 
     List<Orderbuy> queryOrderBuyListByUserID(int userID);
 
+    List<Orderbuy> queryOrderBuyListByKindAndUserID(int postID,int kind);
+
     List<Orderbuy> selectOrderBuyById(int id);
 
     void deleteOrderBuy(int id);

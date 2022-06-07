@@ -16,8 +16,9 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .enable(true)
                 //是否开启 (true 开启  false隐藏。生产环境建议隐藏)
-//                .enable(false)
+//
                 .select()
                 //扫描的路径包,设置basePackage会将包下的所有被@Api标记类的所有方法作为api
                 .apis(RequestHandlerSelectors.basePackage("com.example.mail"))

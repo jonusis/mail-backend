@@ -29,7 +29,7 @@ public class FileController {
         }
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = "D://temp-rainy//"; // 上传后的路径
+        String filePath = "/Users/apple/Desktop/temp-rainy/"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
@@ -42,7 +42,7 @@ public class FileController {
         }
         String filename = "/temp-rainy/" + fileName;
         model.addAttribute("filename", filename);
-        return Result.success("http://10.189.1.135:8080" + filename);
+        return Result.success("http://localhost:8080" + filename);
     }
 
 
@@ -54,7 +54,7 @@ public class FileController {
         }
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = "D://temp-rainy//"; // 上传后的路径
+        String filePath = "/Users/apple/Desktop/temp-rainy/"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
@@ -67,6 +67,6 @@ public class FileController {
         }
         String filename = "/temp-rainy/" + fileName;
         model.addAttribute("filename", filename);
-        return Result.success("http://10.189.1.135:8080" + filename);
+        return Result.success("http://localhost:8080" + filename);
     }
 }

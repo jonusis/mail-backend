@@ -5,9 +5,13 @@ import com.example.mail.Pojo.*;
 import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class PinpinService {
@@ -26,12 +30,14 @@ public class PinpinService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
+
     public void addOrdercar(OrderCar ordercar) {
         int cid = ordercarMapper.selectIdMaxOrderCar();
         int pid = p2OrdersMapper.selectIdMaxP2Order();
-        Date datetime = new Date();
-        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,Integer.parseInt(ordercar.getPostID()),cid + 1));
-        ordercarMapper.addOrderCar(new OrderCar(cid+1,datetime,ordercar.getTime(),ordercar.getTel(),ordercar.getQq(),ordercar.getWechat(),ordercar.getNumNeed(),1,ordercar.getHeading(),ordercar.getContent(),ordercar.getPostID(),0,ordercar.getPlaceA(),ordercar.getPlaceB()));
+        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,Integer.parseInt(ordercar.getPostID()),ordercar.getId()));
+        ordercarMapper.addOrderCar(new OrderCar(cid+1,ordercar.getTime(),ordercar.getTel(),ordercar.getQq(),ordercar.getWechat(),ordercar.getNumNeed(),1,ordercar.getHeading(),ordercar.getContent(),ordercar.getPostID(),0,ordercar.getPlaceA(),ordercar.getPlaceB()));
         return;
     }
 
@@ -43,12 +49,12 @@ public class PinpinService {
         OrderCar chooseOrderCar = ordercarMapper.selectOrderCarById(orderId).get(0);
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         if(chooseOrderCar.getFull() == 1){
-            return Result.error(new CodeMsg(400,"这个拼单已经满了"));
+            return Result.error(new CodeMsg(400,"this order has fulled"));
         }else{
             List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderId,1);
             for(P2Orders p2Orders : list){
                 if(p2Orders.getUserID() == uid){
-                    return Result.error(new CodeMsg(400,"你已经加入过这个订单了"));
+                    return Result.error(new CodeMsg(400,"you have joined this order"));
                 }
             }
             chooseOrderCar.setNumExist(chooseOrderCar.getNumExist() + 1);
@@ -57,7 +63,7 @@ public class PinpinService {
             }
             ordercarMapper.updateOrderCar(new OrderCar(chooseOrderCar));
             p2OrdersMapper.addP2Order(new P2Orders(pid + 1,1,uid,orderId));
-            return Result.success("拼单成功");
+            return Result.success("user add success");
         }
     }
 
@@ -69,7 +75,7 @@ public class PinpinService {
         int id = orderbuyMapper.selectIdMaxOrderBuy();
         int pid = p2OrdersMapper.selectIdMaxP2Order();
         Date datetime = new Date();
-        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,Integer.parseInt(postID),id + 1));
+        p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,Integer.parseInt(postID),id));
         orderbuyMapper.addOrderBuy(id + 1,datetime,time,tel,qq,wechat,numNeed,heading,content,postID,kind,location,picture);
         return;
     }
@@ -78,8 +84,9 @@ public class PinpinService {
         return orderbuyMapper.queryOrderBuyList();
     }
 
-    public List<Orderbuy> getOrderbuyList(int kind) {
-        return orderbuyMapper.getOrderBuyList(kind);
+    @Async("asyncServiceExecutor")
+    public CompletableFuture<List<Orderbuy>> getOrderbuyList(int kind) {
+        return CompletableFuture.completedFuture(orderbuyMapper.getOrderBuyList(kind));
     }
 
     public Orderbuy getOrderBuyById(int id) {
@@ -87,35 +94,63 @@ public class PinpinService {
     }
 
     public Result<String> userJoinOrderBuy(int uid, int orderID) {
-        Orderbuy chooseOrderbuy = orderbuyMapper.selectOrderBuyById(orderID).get(0);
-        int pid = p2OrdersMapper.selectIdMaxP2Order();
-        if(chooseOrderbuy.getFull() == 1){
-            return Result.error(new CodeMsg(400,"这个拼单已经满了"));
-        }else{
-            List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderID,0);
-            for(P2Orders p2Orders : list){
-                if(p2Orders.getUserID() == uid){
-                    return Result.error(new CodeMsg(401,"你已经加入过这个订单了"));
+        String lockKey = "productKey";
+        String clientId = UUID.randomUUID().toString();
+        Boolean result;
+        try {
+            result = redisTemplate.opsForValue().setIfAbsent(lockKey, clientId, 10, TimeUnit.SECONDS);
+            while (!result) {
+                Thread.sleep(15000);
+                result = redisTemplate.opsForValue().setIfAbsent(lockKey, clientId, 10, TimeUnit.SECONDS);
+            }
+            Orderbuy chooseOrderbuy = orderbuyMapper.selectOrderBuyById(orderID).get(0);
+            int pid = p2OrdersMapper.selectIdMaxP2Order();
+            if (chooseOrderbuy.getFull() == 1) {
+                return Result.error(new CodeMsg(400, "这个订单已经满了"));
+            } else {
+                List<P2Orders> list = p2OrdersMapper.searchP2OrdersList(orderID, 0);
+                for (P2Orders p2Orders : list) {
+                    if (p2Orders.getUserID() == uid) {
+                        return Result.error(new CodeMsg(400, "你已经加入过这个订单了"));
+                    }
                 }
+                chooseOrderbuy.setNumExist(chooseOrderbuy.getNumExist() + 1);
+                if (chooseOrderbuy.getNumExist() == chooseOrderbuy.getNumNeed()) {
+                    chooseOrderbuy.setFull(1);
+                }
+                orderbuyMapper.updateOrderBuy(new Orderbuy(chooseOrderbuy));
+                p2OrdersMapper.addP2Order(new P2Orders(pid + 1, 0, uid, orderID));
+                return Result.success("加入订单成功");
             }
-            chooseOrderbuy.setNumExist(chooseOrderbuy.getNumExist() + 1);
-            if(chooseOrderbuy.getNumExist() == chooseOrderbuy.getNumNeed()){
-                chooseOrderbuy.setFull(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            if(clientId.equals(redisTemplate.opsForValue().get(lockKey))){
+                redisTemplate.delete(lockKey);
             }
-            orderbuyMapper.updateOrderBuy(new Orderbuy(chooseOrderbuy));
-            p2OrdersMapper.addP2Order(new P2Orders(pid + 1,0,uid,orderID));
-            return Result.success("拼单成功");
         }
+        return Result.error(new CodeMsg(400, "error"));
     }
     public List<Orderbuy> queryOrderbuyListByUserID(int userID) {
-        List<Integer> list = p2OrdersMapper.getBuyOidByUid(userID);
+        return orderbuyMapper.queryOrderBuyListByUserID(userID);
+    }
+
+    public List<Orderbuy> queryOrderbuyListComments(int userID) {
+        List<Integer> list = commentsMapper.getOidByUid(userID);
         List<Orderbuy> res = new ArrayList<>();
-        for(int orderID : list){
-            res.add(orderbuyMapper.selectOrderBuyById(orderID).get(0));
+        for(int id : list){
+            res.add(orderbuyMapper.selectOrderBuyById(id).get(0));
         }
         return res;
     }
-
+    public List<Orderbuy> queryOrderBuyListJoin(int userID) {
+        List<Integer> list = p2OrdersMapper.getOidByUid(userID);
+        List<Orderbuy> res = new ArrayList<>();
+        for(int id : list){
+            res.add(orderbuyMapper.selectOrderBuyById(id).get(0));
+        }
+        return res;
+    }
     public List<String> getUserPicByOid(int id) {
         List<Integer> uidList = p2OrdersMapper.getBuyUidByOid(id);
         List<String> userPic = new ArrayList<>();

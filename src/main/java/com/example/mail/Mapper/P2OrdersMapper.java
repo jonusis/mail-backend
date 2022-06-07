@@ -17,6 +17,8 @@ public interface P2OrdersMapper {
 
     int selectIdMaxP2Order();
 
+    List<Integer> getOidByUid(int id);
+
     List<Integer> getUidByOid(int id);
 
     List<Integer> getBuyUidByOid(int id);

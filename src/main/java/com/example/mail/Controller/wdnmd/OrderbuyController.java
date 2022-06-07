@@ -1,9 +1,6 @@
 package com.example.mail.Controller.wdnmd;
 
-import com.example.mail.Pojo.Address;
-import com.example.mail.Pojo.OrderCar;
-import com.example.mail.Pojo.Orderbuy;
-import com.example.mail.Pojo.P2Orders;
+import com.example.mail.Pojo.*;
 import com.example.mail.ResultSet.CodeMsg;
 import com.example.mail.ResultSet.PagehelpResult;
 import com.example.mail.ResultSet.Result;
@@ -11,12 +8,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(value = "/order")
@@ -71,8 +71,9 @@ public class OrderbuyController {
             } else {
                 res.put("full",true);
             }
-
-            userPicture = pinpinService.getUserPicByOid(id);
+            String username = pinpinService.getUserInfoByOid(id).get(0).getName();
+            res.put("username",username);
+        userPicture = pinpinService.getUserPicByOid(id);
             res.put("userPicture",userPicture);
 
             comments = pinpinService.getCommentsDetailByOid(id);
@@ -82,9 +83,10 @@ public class OrderbuyController {
     }
 
     @RequestMapping(value = "/buy/list", method = RequestMethod.GET)
-    public PagehelpResult<List<Orderbuy>> getOrderBuyList(@RequestParam(defaultValue = "1") String kind,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
+    public PagehelpResult<List<Orderbuy>> getOrderBuyList(@RequestParam(defaultValue = "1") String kind,@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize) throws ExecutionException, InterruptedException {
         PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
-        List<Orderbuy> list = pinpinService.getOrderbuyList(Integer.parseInt(kind));
+        CompletableFuture<List<Orderbuy>> res = pinpinService.getOrderbuyList(Integer.parseInt(kind));
+        List<Orderbuy> list = res.get();
         PageInfo<Orderbuy> pageInfo = new PageInfo<>(list);
         int pageNumber = pageInfo.getPageNum();
         int PageSize = pageInfo.getPages();
@@ -103,13 +105,12 @@ public class OrderbuyController {
     }
 
     @RequestMapping(value = "/buy/list/queryOrderBuyListById", method = RequestMethod.GET)
-    public PagehelpResult<List<Orderbuy>> queryOrderBuyListById(@RequestParam String userID, @RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "5") String pagesize){
-        PageHelper.startPage(Integer.parseInt(page),Integer.parseInt(pagesize));
-        List<Orderbuy> list = pinpinService.queryOrderbuyListByUserID(Integer.parseInt(userID));
-        PageInfo<Orderbuy> pageInfo = new PageInfo<>(list);
-        int pageNumber = pageInfo.getPageNum();
-        int PageSize = pageInfo.getPages();
-        return PagehelpResult.success(list,pageNumber,PageSize);
+    public Result<Map<String,List<Orderbuy>>> queryOrderBuyListById(@RequestParam String userID){
+        HashMap<String,List<Orderbuy>> res = new HashMap<>();
+        res.put("Comments",pinpinService.queryOrderbuyListComments(Integer.parseInt(userID)));
+        res.put("Join",pinpinService.queryOrderBuyListJoin(Integer.parseInt(userID)));
+        res.put("Post",pinpinService.queryOrderbuyListByUserID(Integer.parseInt(userID)));
+        return Result.success(res);
     }
 }
 

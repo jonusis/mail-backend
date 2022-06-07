@@ -24,4 +24,6 @@ public interface CommentsMapper {
     void deleteComments(int id);
 
     List<Integer> getUidByOid(int id);
+
+    List<Integer> getOidByUid(int userID);
 }

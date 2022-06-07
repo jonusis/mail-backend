@@ -27,4 +27,7 @@
     <select id="getUidByOid" resultType="int">
         select userID from Comments where orderbuyID = #{id} ORDER BY datetime
     </select>
+    <select id="getOidByUid" resultType="int">
+        select orderbuyID from Comments where userID = #{id} ORDER BY datetime
+    </select>
 </mapper>

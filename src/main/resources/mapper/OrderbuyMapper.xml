@@ -21,6 +21,9 @@
     <select id="getOrderBuyList" resultType="Orderbuy" parameterType="int">
         select * from Orderbuy where kind = #{kind}
     </select>
+    <select id="queryOrderBuyListByKindAndUserID" resultType="Orderbuy">
+        select * from Orderbuy where kind = #{kind} and postID = #{postID}
+    </select>
     <delete id="deleteOrderBuy" parameterType="int">
         delete from Orderbuy where id = #{id}
     </delete>
